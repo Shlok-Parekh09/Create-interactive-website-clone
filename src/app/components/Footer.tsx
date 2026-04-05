@@ -4,9 +4,8 @@ const footerLinks = {
   "Quick Links": [
     { label: "About", href: "#about" },
     { label: "Timeline", href: "#timeline" },
-    { label: "Tracks", href: "#tracks" },
-    { label: "Prizes", href: "#prizes" },
-    { label: "Sponsors", href: "#sponsors" },
+    { label: "Abilities", href: "#abilities" },
+    { label: "Leaderboard", href: "#leaderboard" },
     { label: "FAQ", href: "#faq" },
   ],
   "Contact": [
@@ -17,10 +16,7 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: <Twitter className="w-5 h-5" />, href: "https://twitter.com", label: "Twitter" },
-  { icon: <Instagram className="w-5 h-5" />, href: "https://instagram.com", label: "Instagram" },
-  { icon: <Linkedin className="w-5 h-5" />, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: <Github className="w-5 h-5" />, href: "https://github.com", label: "GitHub" },
+  { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/sbmpce_math?igsh=MWd4NnZkY3dlZTVqdg==", label: "Instagram" },
 ];
 
 interface FooterProps {
@@ -60,14 +56,14 @@ export function Footer({ onRegister }: FooterProps) {
                 className="text-white"
                 style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.1rem", fontWeight: 700 }}
               >
-                NEO<span className="text-cyan-400">FUTURE</span>
+                The <span className="text-cyan-400">MARTRIX</span>
               </span>
             </div>
             <p
               className="text-gray-500 text-sm mb-6 leading-relaxed"
               style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
-              SLRTCE's flagship 36-hour hackathon. Build. Innovate. Transform the future.
+              SANKHYA's Premier Game Theory Arena. Negotiate. Betray. Survive the Matrix. A high-stakes tournament where 10 Health is your only currency and every alliance has a price.
             </p>
             <div className="flex gap-3">
               {socials.map((social) => (
@@ -145,7 +141,7 @@ export function Footer({ onRegister }: FooterProps) {
               REGISTER NOW
             </button>
             <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
-              Free to participate. Students only.
+              Participation:Students only.
             </p>
           </div>
         </div>
@@ -153,7 +149,7 @@ export function Footer({ onRegister }: FooterProps) {
         {/* Bottom bar */}
         <div className="border-t border-cyan-500/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
-            © 2026 NeoFuture Hackathon, SLRTCE. All rights reserved.
+            © 2026 The Martrix,SANKHYA. All rights reserved.
           </p>
           <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
             Irla, N. R. G. Marg, Opposite Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle, Mumbai, Maharashtra 400056
