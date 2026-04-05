@@ -119,7 +119,7 @@ export function Abilities() {
             THE <span style={{ color: "#00f5ff" }}>ARSENAL</span>
           </h2>
           <p className="text-gray-100 max-w-3xl mx-auto text-lg font-medium opacity-95">
-            Every team starts with **10 health**. Use your one-time secret ability to protect your lead or trigger a 50% Bounty steal.
+            Every team holds a single-use Ultimate Ability. Use it to shield your progress or trigger a Bounty Raid—instantly seizing 50% of an opponent’s points.
           </p>
         </div>
 
