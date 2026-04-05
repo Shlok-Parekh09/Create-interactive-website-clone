@@ -4,22 +4,22 @@ const features = [
   {
     icon: <Swords className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Strategy & Survival",
-    desc: "Every team starts with 10 health[cite: 16]. Negotiate, bluff, and betray to keep your team alive[cite: 9, 14].",
+    desc: "Every team starts with 10 health. Negotiate, bluff, and betray to keep your team alive.",
   },
   {
     icon: <Users className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Triad Teams",
-    desc: "Form a powerhouse of 3[cite: 18]. Each matchup consists of three high-stakes 1-on-1 duels[cite: 21].",
+    desc: "Form a powerhouse of 3. Each matchup consists of three high-stakes 1-on-1 duels.",
   },
   {
     icon: <Shield className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Secret Abilities",
-    desc: "Unleash one-time powers like The Shield or Poison to swing the duel in your favor[cite: 70, 74].",
+    desc: "Unleash one-time powers like The Shield or Poison to swing the duel in your favor.",
   },
   {
     icon: <Activity className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Bounty System",
-    desc: "Betrayal triggers unblockable point deductions that serve as the Arena's justice[cite: 52, 56].",
+    desc: "Betrayal triggers unblockable point deductions that serve as the Arena's justice.",
   },
 ];
 
@@ -41,7 +41,7 @@ export function About() {
             WHAT IS <span style={{ color: "#00f5ff" }}>THE MATRIX</span>?
           </h2>
           <p className="text-gray-100 max-w-4xl mx-auto leading-relaxed text-lg md:text-2xl font-medium opacity-90" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            The Matrix is SANKHYA's premier Game Theory Arena[cite: 8]. Face off in a round-robin format [cite: 20] where you decide between mutual cooperation (+3 pts) or risky betrayal (+5 pts)[cite: 43]. Managing health is critical: hit 0, and face immediate elimination[cite: 15, 16].
+            The Matrix: SANKHYA’s Premier Arena for High-Stakes Game Theory. Every round is a gamble: Cooperate for a steady +3 points, or Betray for a lethal +5. But beware—in this circuit, your Health is your only currency. Hit zero, and you’re permanently disconnected.
           </p>
         </div>
 
