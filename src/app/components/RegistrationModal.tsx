@@ -77,7 +77,7 @@ const saveTeam = (data: FormData) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify([...teams, newTeam]));
 };
 
-const teamSizes = ["2 Members", "3 Members", "4 Members"];
+const teamSizes = ["1 Member", "2 Members", "3 Members"];
 const UPI_ID = "yugshah197@upi";
 
 // ─── Main Component ───────────────────────────────────────────────────────────
