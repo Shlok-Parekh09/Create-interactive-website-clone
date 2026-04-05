@@ -10,8 +10,8 @@ const footerLinks = {
     { label: "FAQ", href: "#faq" },
   ],
   "Contact": [
-    { label: "neofuture@slrtce.in", href: "mailto:neofuture@slrtce.in", icon: <Mail className="w-3.5 h-3.5" /> },
-    { label: "+91 98765 43210", href: "tel:+919876543210", icon: <Phone className="w-3.5 h-3.5" /> },
+    { label: "sbmpcemaths@gmail.com", href: "mailto:sbmpcemaths@gmail.com", icon: <Mail className="w-3.5 h-3.5" /> },
+    { label: "+91 9137143315", href: "tel:+919137143315", icon: <Phone className="w-3.5 h-3.5" /> },
     { label: "Irla, N. R. G. Marg, opp. Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle, Mumbai - 400056", href: "https://maps.google.com/?q=Irla,NRG+Marg,Opposite+Cooper+Hospital,Vile+Parle,Mumbai,400056", icon: <MapPin className="w-3.5 h-3.5" /> },
   ],
 };
