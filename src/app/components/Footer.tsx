@@ -6,7 +6,7 @@ const footerLinks = {
     { label: "Timeline", href: "#timeline" },
     { label: "Abilities", href: "#abilities" },
     { label: "Leaderboard", href: "#leaderboard" },
-    { label: "FAQ", href: "#faq" },
+    { label: "FAQ", href: "#faq" }
   ],
   "Contact": [
     { label: "sbmpcemaths@gmail.com", href: "mailto:sbmpcemaths@gmail.com", icon: <Mail className="w-3.5 h-3.5" /> },
@@ -19,11 +19,13 @@ const socials = [
   { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/sbmpce_math?igsh=MWd4NnZkY3dlZTVqdg==", label: "Instagram" },
 ];
 
+// 1. Added onAdminClick to the interface
 interface FooterProps {
   onRegister: () => void;
+  onAdminClick: () => void; 
 }
 
-export function Footer({ onRegister }: FooterProps) {
+export function Footer({ onRegister, onAdminClick }: FooterProps) {
   const handleNavClick = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -114,6 +116,21 @@ export function Footer({ onRegister }: FooterProps) {
                     )}
                   </li>
                 ))}
+                
+                {/* 2. THE SECURITY BACKDOOR */}
+                {/* This only renders under the "Quick Links" section */}
+                {section === "Quick Links" && (
+                  <li>
+                    <button
+                      onClick={onAdminClick}
+                      className="text-gray-600 hover:text-cyan-400 transition-colors text-sm flex items-center gap-2 mt-2"
+                      style={{ fontFamily: "Space Grotesk, sans-serif" }}
+                    >
+                      Admin Portal
+                    </button>
+                  </li>
+                )}
+                
               </ul>
             </div>
           ))}
@@ -141,7 +158,7 @@ export function Footer({ onRegister }: FooterProps) {
               REGISTER NOW
             </button>
             <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
-              Participation:Students only.
+              Participation: Students only.
             </p>
           </div>
         </div>
@@ -149,7 +166,7 @@ export function Footer({ onRegister }: FooterProps) {
         {/* Bottom bar */}
         <div className="border-t border-cyan-500/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
-            © 2026 The Martrix,SANKHYA. All rights reserved.
+            © 2026 The Martrix, SANKHYA. All rights reserved.
           </p>
           <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
             Irla, N. R. G. Marg, Opposite Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle, Mumbai, Maharashtra 400056
