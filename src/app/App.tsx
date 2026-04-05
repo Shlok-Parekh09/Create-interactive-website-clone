@@ -13,9 +13,12 @@ import { FullScreenLeaderboard } from "./components/FullScreenLeaderboard";
 import { Admin } from "./components/admin";
 import { Lock, ShieldAlert, Activity } from "lucide-react"; 
 
+const initialArenaTeams = [];
 
 export default function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  
+  // ── SHARED ARENA STATE ──
 
   // ── STATE ──
   const [currentView, setCurrentView] = useState<'landing' | 'leaderboard' | 'admin' | 'admin_login'>('landing');
@@ -135,7 +138,6 @@ export default function App() {
       <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "radial-gradient(ellipse at 50% 30%, rgba(0,245,255,0.06) 0%, rgba(139,0,255,0.04) 50%, transparent 80%)", zIndex: -1 }} />
 
       {/* ── PUBLIC HUD TOGGLE (Floating Bottom Right) ── */}
-      {/* This renders only on the Landing or Leaderboard pages, exactly like the original. */}
       {(currentView === 'landing' || currentView === 'leaderboard') && (
         <div className="fixed bottom-6 right-6 z-[200]">
           <button
@@ -146,9 +148,9 @@ export default function App() {
                 : 'bg-cyan-500 text-black shadow-[0_0_20px_rgba(0,245,255,0.4)]'
             }`}
           >
-            {currentView === 'leaderboard' ? 'Exit The Leaderborad' : (
+            {currentView === 'leaderboard' ? 'Exit The Leaderboard' : (
               <>
-                <Activity size={18} className="animate-pulse" /> Open The Leaderborad
+                <Activity size={18} className="animate-pulse" /> Open The Leaderboard
               </>
             )}
           </button>
@@ -191,6 +193,7 @@ export default function App() {
       
       /* 2. THE FULL-SCREEN LEADERBOARD */
       ) : currentView === 'leaderboard' ? (
+        // FIXED: Passed arenaTeams here
         <FullScreenLeaderboard teams={[]} />
       
       /* 3. THE ADMIN COMMAND CENTER */
@@ -201,22 +204,27 @@ export default function App() {
               Logout System
             </button>
           </div>
-          <Admin teams={[]} setTeams={undefined} />
+          {/* FIXED: Passed arenaTeams and setArenaTeams here */}
+          <Admin teams={[]} setTeams={[]} />
         </div>
       
       /* 4. THE LANDING PAGE */
       ) : (
         <>
-          <Navbar onRegister={() => setIsRegisterOpen(true)} />
+          {/* FIXED: Removed the Error throw and passed the correct function */}
+          <Navbar 
+            onRegister={() => setIsRegisterOpen(true)} 
+            onOpenLeaderboard={() => setCurrentView('leaderboard')} 
+          />
           <Hero onRegister={() => setIsRegisterOpen(true)} />
           <About />
           <Timeline />
           <Abilities />
           <FAQ />
           <Footer 
-            onRegister={() => setIsRegisterOpen(true)} 
-            onAdminClick={() => setCurrentView('admin_login')} 
-          />
+                  onRegister={() => setIsRegisterOpen(true)}
+                  onAdminClick={() => setCurrentView('admin')} 
+                  onOpenLeaderboard={() => setCurrentView('leaderboard')}        />
         </>
       )}
 
