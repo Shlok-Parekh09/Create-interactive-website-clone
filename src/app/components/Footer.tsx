@@ -22,7 +22,7 @@ const socials = [
 // 1. Added onAdminClick to the interface
 interface FooterProps {
   onRegister: () => void;
-  onAdminClick: () => void; 
+  onAdminClick: () => void;
 }
 
 export function Footer({ onRegister, onAdminClick }: FooterProps) {
@@ -116,7 +116,7 @@ export function Footer({ onRegister, onAdminClick }: FooterProps) {
                     )}
                   </li>
                 ))}
-                
+
                 {/* 2. THE SECURITY BACKDOOR */}
                 {/* This only renders under the "Quick Links" section */}
                 {section === "Quick Links" && (
@@ -130,7 +130,7 @@ export function Footer({ onRegister, onAdminClick }: FooterProps) {
                     </button>
                   </li>
                 )}
-                
+
               </ul>
             </div>
           ))}
@@ -157,7 +157,7 @@ export function Footer({ onRegister, onAdminClick }: FooterProps) {
             >
               REGISTER NOW
             </button>
-            <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
+            <p className="text-white-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
               Participation: Students only.
             </p>
           </div>
@@ -165,10 +165,10 @@ export function Footer({ onRegister, onAdminClick }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="border-t border-cyan-500/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
+          <p className="text-white-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
             © 2026 The Martrix, SANKHYA. All rights reserved.
           </p>
-          <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
+          <p className="text-white-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
             Irla, N. R. G. Marg, Opposite Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle, Mumbai, Maharashtra 400056
           </p>
         </div>
