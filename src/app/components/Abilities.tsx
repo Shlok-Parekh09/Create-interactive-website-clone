@@ -109,7 +109,7 @@ export function Abilities() {
 
   return (
     <section id="abilities" className="relative py-12 bg-transparent overflow-hidden">
-      <div className="max-w-[1300px] mx-auto px-6 lg:px-12 relative z-10">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         <div className="text-center mb-10">
           <p className="text-cyan-400 text-xs tracking-[0.4em] uppercase mb-4 font-mono font-bold">

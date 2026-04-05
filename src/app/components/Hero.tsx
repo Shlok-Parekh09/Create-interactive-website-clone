@@ -53,13 +53,13 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <div
-        className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center border border-cyan-500/40 bg-[#050518]/80 backdrop-blur-sm"
+        className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center border border-cyan-500/40 bg-[#050518]/80 backdrop-blur-sm"
         style={{ clipPath: "polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)" }}
       >
         <div className="absolute inset-0 bg-cyan-500/5" />
         <span
           className="text-cyan-400 relative z-10"
-          style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.8rem", fontWeight: 700 }}
+          style={{ fontFamily: "Orbitron, sans-serif", fontSize: "clamp(1.4rem, 4vw, 1.8rem)", fontWeight: 700 }}
         >
           {String(value).padStart(2, "0")}
         </span>
@@ -104,8 +104,10 @@ export function Hero({ onRegister }: HeroProps) {
 
       {/* Radial glow */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-10"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-10"
         style={{
+          width: "min(80vw, 800px)",
+          height: "min(80vw, 800px)",
           background: "radial-gradient(circle, rgba(0,245,255,0.4) 0%, rgba(139,0,255,0.2) 40%, transparent 70%)",
           zIndex: 5,
         }}
@@ -133,9 +135,9 @@ export function Hero({ onRegister }: HeroProps) {
       <div className="absolute bottom-20 right-8 w-16 h-16 border-b-2 border-r-2 border-purple-500/50" style={{ zIndex: 5 }} />
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-xl mx-auto sm:max-w-3xl lg:max-w-5xl">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 text-xs tracking-widest uppercase"
+        <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 text-[11px] tracking-widest uppercase"
           style={{ fontFamily: "Share Tech Mono, monospace" }}
         >
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
@@ -144,7 +146,7 @@ export function Hero({ onRegister }: HeroProps) {
 
         {/* Main Title */}
         <h1
-          className="text-white mb-2 leading-none"
+          className="text-white mb-2 mt-4 leading-none"
           style={{
             fontFamily: "Orbitron, sans-serif",
             fontSize: "clamp(3rem, 10vw, 7rem)",
@@ -188,22 +190,22 @@ export function Hero({ onRegister }: HeroProps) {
           >
             — SYSTEM BOOT IN —
           </p>
-          <div className="flex items-start justify-center gap-4 sm:gap-6">
+          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4">
             <CountdownUnit value={timeLeft.days} label="Days" />
-            <span className="text-cyan-400 mt-6 text-3xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
+            <span className="text-cyan-400 mt-6 text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
             <CountdownUnit value={timeLeft.hours} label="Hours" />
-            <span className="text-cyan-400 mt-6 text-3xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
+            <span className="text-cyan-400 mt-6 text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
             <CountdownUnit value={timeLeft.minutes} label="Minutes" />
-            <span className="text-cyan-400 mt-6 text-3xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
+            <span className="text-cyan-400 mt-6 text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
             <CountdownUnit value={timeLeft.seconds} label="Seconds" />
           </div>
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col gap-4 justify-center items-center sm:flex-row">
           <button
             onClick={onRegister}
-            className="relative px-10 py-4 bg-cyan-500 hover:bg-cyan-400 text-black transition-all duration-200 overflow-hidden group"
+            className="relative w-full sm:w-auto px-8 sm:px-10 py-4 bg-cyan-500 hover:bg-cyan-400 text-black transition-all duration-200 overflow-hidden group"
             style={{
               fontFamily: "Orbitron, sans-serif",
               fontWeight: 700,
@@ -218,7 +220,7 @@ export function Hero({ onRegister }: HeroProps) {
           </button>
           <button
             onClick={scrollToAbout}
-            className="relative px-10 py-4 border border-cyan-500/60 hover:border-cyan-400 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 transition-all duration-200"
+            className="relative w-full sm:w-auto px-8 sm:px-10 py-4 border border-cyan-500/60 hover:border-cyan-400 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 transition-all duration-200"
             style={{
               fontFamily: "Orbitron, sans-serif",
               fontWeight: 700,

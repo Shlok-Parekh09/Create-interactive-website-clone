@@ -32,7 +32,7 @@ export function About() {
       <div className="absolute -top-40 -right-40 w-[400px] h-[400px] rounded-full opacity-10 blur-[80px] pointer-events-none" style={{ background: "radial-gradient(circle, #00f5ff, transparent)" }} />
       <div className="absolute -bottom-40 -left-40 w-[400px] h-[400px] rounded-full opacity-10 blur-[80px] pointer-events-none" style={{ background: "radial-gradient(circle, #8b00ff, transparent)" }} />
 
-      <div className="max-w-[1200px] mx-auto px-6 lg:px-12 relative z-10">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header - Scaled down */}
         <div className="text-center mb-12">
