@@ -4,9 +4,7 @@ import { Menu, X, Zap } from "lucide-react";
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Timeline", href: "#timeline" },
-  { label: "Tracks", href: "#tracks" },
-  { label: "Prizes", href: "#prizes" },
-  { label: "Sponsors", href: "#sponsors" },
+  { label: "Arsenal", href: "#arsenal" },
   { label: "FAQ", href: "#faq" },
 ];
 
@@ -34,11 +32,10 @@ export function Navbar({ onRegister }: NavbarProps) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#050510]/95 backdrop-blur-md border-b border-cyan-500/20 shadow-lg shadow-cyan-500/5"
-          : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+        ? "bg-[#050510]/95 backdrop-blur-md border-b border-cyan-500/20 shadow-lg shadow-cyan-500/5"
+        : "bg-transparent"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -98,9 +95,8 @@ export function Navbar({ onRegister }: NavbarProps) {
 
       {/* Mobile menu */}
       <div
-        className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`md:hidden transition-all duration-300 overflow-hidden ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+          }`}
       >
         <div className="bg-[#050510]/98 backdrop-blur-md border-b border-cyan-500/20 px-4 py-4 flex flex-col gap-4">
           {navLinks.map((link) => (
