@@ -4,22 +4,22 @@ const features = [
   {
     icon: <Swords className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Strategy & Survival",
-    desc: "Every team starts with 10 health[cite: 16]. Negotiate, bluff, and betray to keep your team alive[cite: 9, 14].",
+    desc: "Every team starts with 10 health. Negotiate, bluff, and betray to keep your team alive.",
   },
   {
     icon: <Users className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Triad Teams",
-    desc: "Form a powerhouse of 3[cite: 18]. Each matchup consists of three high-stakes 1-on-1 duels[cite: 21].",
+    desc: "Form a powerhouse of 3. Each matchup consists of three high-stakes 1-on-1 duels.",
   },
   {
     icon: <Shield className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Secret Abilities",
-    desc: "Unleash one-time powers like The Shield or Poison to swing the duel in your favor[cite: 70, 74].",
+    desc: "Unleash one-time powers like The Shield or Poison to swing the duel in your favor.",
   },
   {
     icon: <Activity className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Bounty System",
-    desc: "Betrayal triggers unblockable point deductions that serve as the Arena's justice[cite: 52, 56].",
+    desc: "Betrayal triggers unblockable point deductions that serve as the Arena's justice.",
   },
 ];
 
