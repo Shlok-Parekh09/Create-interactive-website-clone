@@ -223,7 +223,7 @@ export default function App() {
           <FAQ />
           <Footer 
                   onRegister={() => setIsRegisterOpen(true)}
-                  onAdminClick={() => setCurrentView('admin_login')} 
+                  onAdminClick={() => setCurrentView('admin')} 
                   onOpenLeaderboard={() => setCurrentView('leaderboard')}        />
         </>
       )}

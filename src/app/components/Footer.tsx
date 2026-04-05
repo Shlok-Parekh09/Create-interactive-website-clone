@@ -31,6 +31,7 @@ const socials = [
 interface FooterProps {
   onRegister: () => void;
   onAdminClick: () => void; 
+  onOpenLeaderboard: () => void;
 }
 
 export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterProps) {
