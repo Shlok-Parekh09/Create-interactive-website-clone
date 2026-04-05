@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
@@ -9,16 +11,40 @@ import { Footer } from "./components/Footer";
 import { RegistrationModal } from "./components/RegistrationModal";
 
 // Import the components
-import { FullScreenLeaderboard } from "./components/FullScreenLeaderboard";
+import { FullScreenLeaderboard, TeamProps } from "./components/FullScreenLeaderboard";
 import { Admin } from "./components/admin";
 import { Lock, ShieldAlert, Activity } from "lucide-react"; 
 
-const initialArenaTeams = [];
+const initialArenaTeams: TeamProps[] = [];
 
 export default function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   
   // ── SHARED ARENA STATE ──
+  const [arenaTeams, setArenaTeams] = useState<TeamProps[]>(initialArenaTeams);
+
+  useEffect(() => {
+    const docRef = doc(db, "gameState", "current");
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.teams) {
+          setArenaTeams(data.teams);
+        }
+      } else {
+        // Initialize if not exists
+        setDoc(docRef, { teams: initialArenaTeams });
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const handleSetTeams = (newTeams: TeamProps[]) => {
+    const docRef = doc(db, "gameState", "current");
+    setDoc(docRef, { teams: newTeams }, { merge: true });
+    // Update local state optimistically
+    setArenaTeams(newTeams);
+  };
 
   // ── STATE ──
   const [currentView, setCurrentView] = useState<'landing' | 'leaderboard' | 'admin' | 'admin_login'>('landing');
@@ -193,8 +219,8 @@ export default function App() {
       
       /* 2. THE FULL-SCREEN LEADERBOARD */
       ) : currentView === 'leaderboard' ? (
-        // FIXED: Passed arenaTeams here
-        <FullScreenLeaderboard teams={[]} />
+        <FullScreenLeaderboard teams={arenaTeams} />
+
       
       /* 3. THE ADMIN COMMAND CENTER */
       ) : currentView === 'admin' ? (
@@ -204,8 +230,7 @@ export default function App() {
               Logout System
             </button>
           </div>
-          {/* FIXED: Passed arenaTeams and setArenaTeams here */}
-          <Admin teams={[]} setTeams={[]} />
+          <Admin teams={arenaTeams} setTeams={handleSetTeams} />
         </div>
       
       /* 4. THE LANDING PAGE */

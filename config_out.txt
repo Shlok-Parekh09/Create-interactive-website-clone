@@ -1,0 +1,34 @@
+﻿node.exe : - Downloading 
+configuration data of 
+your Firebase WEB app
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (-  
+   Downloading c...ireb   
+ ase WEB app:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+Γ£ö Downloading 
+configuration data of 
+your Firebase WEB app
+{
+  "projectId": "matrix-4f53a",
+  "appId": "1:437673456419:web:205821af0fdd2beed6d296",
+  "storageBucket": "matrix-4f53a.firebasestorage.app",
+  "apiKey": "AIzaSyBZBCHksO9KXZEl3jF8F1UiQFvMzJwSm78",
+  "authDomain": "matrix-4f53a.firebaseapp.com",
+  "messagingSenderId": "437673456419",
+  "measurementId": "G-Y0Q37VXFBH",
+  "projectNumber": "437673456419",
+  "version": "2"
+}
