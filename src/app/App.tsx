@@ -51,11 +51,11 @@ export default function App() {
       const deltaY = currentScrollY - lastScrollY;
       lastScrollY = currentScrollY;
 
-      // ⭐ NEW: If near top → behave like initial load
+      // ⭐ If near top → behave like initial load
       if (currentScrollY < 50) {
         isRewinding = false;
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        video.play().catch(() => { });
+        video.play().catch(() => {});
         return;
       }
 
@@ -63,9 +63,8 @@ export default function App() {
         // 🖱️ Scroll DOWN
         isRewinding = false;
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        if (video.paused) video.play().catch(() => { });
-      }
-      else if (deltaY < 0) {
+        if (video.paused) video.play().catch(() => {});
+      } else if (deltaY < 0) {
         // 👆 Scroll UP (rewind)
         video.pause();
 
@@ -95,26 +94,13 @@ export default function App() {
     };
   }, []);
 
-  const videoRef = useRef(null); // 👈 NEW
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5; // 👈 slow motion
-    }
-  }, []);
-
   return (
     <div className="min-h-screen" style={{ background: "transparent" }}>
 
-<<<<<<< HEAD
       {/* ── Fixed full-site video background ── */}
       <video
-        ref={videoRef} // 👈 ADD THIS
-        autoPlay
-=======
-      <video
         ref={videoRef}
->>>>>>> fd238c5fa2caa423f23eafe1e65484960df91a8d
+        autoPlay
         loop
         muted
         playsInline
@@ -132,7 +118,6 @@ export default function App() {
       </video>
 
       {/* Dark tinted overlay */}
-<<<<<<< HEAD
       <div
         style={{
           position: "fixed",
@@ -146,7 +131,7 @@ export default function App() {
         }}
       />
 
-      {/* Radial accent */}
+      {/* Cyan/purple radial accent */}
       <div
         style={{
           position: "fixed",
@@ -159,28 +144,6 @@ export default function App() {
           zIndex: -1,
         }}
       />
-=======
-      <div style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        background: "linear-gradient(135deg, rgba(2,2,8,0.80) 0%, rgba(5,5,24,0.72) 50%, rgba(2,2,8,0.80) 100%)",
-        zIndex: -1,
-      }} />
-
-      {/* Cyan/purple radial accent */}
-      <div style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        background: "radial-gradient(ellipse at 50% 30%, rgba(0,245,255,0.06) 0%, rgba(139,0,255,0.04) 50%, transparent 80%)",
-        zIndex: -1,
-      }} />
->>>>>>> fd238c5fa2caa423f23eafe1e65484960df91a8d
 
       <Navbar onRegister={() => setIsRegisterOpen(true)} />
       <Hero onRegister={() => setIsRegisterOpen(true)} />
