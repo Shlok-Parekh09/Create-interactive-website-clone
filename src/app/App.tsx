@@ -8,8 +8,16 @@ import { FAQ } from "./components/FAQ";
 import { Footer } from "./components/Footer";
 import { RegistrationModal } from "./components/RegistrationModal";
 
+// Import the new components
+import { FullScreenLeaderboard } from "./components/FullScreenLeaderboard";
+
 export default function App() {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+
+  // ── HUD & Admin State ──
+  // view: 'landing' | 'leaderboard' | 'admin'
+  const [currentView, setCurrentView] = useState<'landing' | 'leaderboard' | 'admin'>('landing');
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const scrollTimeout = useRef<number | null>(null);
 
@@ -26,14 +34,9 @@ export default function App() {
     let isRewinding = false;
     let animationFrameId: number;
 
-    // 🏎️ The "Engine" that makes rewinding buttery smooth
     const smoothRewind = () => {
       if (!video || !isRewinding) return;
-
-      // Glide current time 10% of the way towards the target time every frame
       video.currentTime += (targetTime - video.currentTime) * 0.1;
-
-      // If we are close enough to the target, stop the animation loop
       if (Math.abs(targetTime - video.currentTime) < 0.01) {
         isRewinding = false;
         video.pause();
@@ -43,13 +46,14 @@ export default function App() {
     };
 
     const handleScroll = () => {
-      if (scrollTimeout.current) window.clearTimeout(scrollTimeout.current);
+      // Only handle video scroll logic if we are on the landing page
+      if (currentView !== 'landing') return;
 
+      if (scrollTimeout.current) window.clearTimeout(scrollTimeout.current);
       const currentScrollY = window.scrollY;
       const deltaY = currentScrollY - lastScrollY;
       lastScrollY = currentScrollY;
 
-      // ⭐ If near top → behave like initial load
       if (currentScrollY < 50) {
         isRewinding = false;
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -58,42 +62,51 @@ export default function App() {
       }
 
       if (deltaY > 0) {
-        // 🖱️ Scroll DOWN
         isRewinding = false;
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
         if (video.paused) video.play().catch(() => { });
       } else if (deltaY < 0) {
-        // 👆 Scroll UP (rewind)
         video.pause();
-
         if (!isRewinding) {
           targetTime = video.currentTime;
           isRewinding = true;
           smoothRewind();
         }
-
         const rewindAmount = Math.abs(deltaY) * 0.008;
         targetTime = Math.max(0, targetTime - rewindAmount);
       }
 
       scrollTimeout.current = window.setTimeout(() => {
-        if (!isRewinding) {
-          video.pause();
-        }
+        if (!isRewinding) video.pause();
       }, 150);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       if (scrollTimeout.current) window.clearTimeout(scrollTimeout.current);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
-  }, []);
+  }, [currentView]); // Re-run effect if view changes to toggle scroll logic
 
   return (
     <div className="min-h-screen" style={{ background: "transparent" }}>
+
+      {/* ── Admin Hidden Controls (Floating Action Button) ── */}
+      <div className="fixed bottom-6 right-6 z-[200] flex flex-col gap-2">
+        <button
+          onClick={() => setCurrentView(currentView === 'admin' ? 'landing' : 'admin')}
+          className="bg-red-600 text-white p-3 rounded-full shadow-lg font-mono text-[10px] hover:scale-110 transition-transform uppercase font-bold"
+        >
+          {currentView === 'admin' ? 'Exit Admin' : 'Admin Panel'}
+        </button>
+        <button
+          onClick={() => setCurrentView(currentView === 'leaderboard' ? 'landing' : 'leaderboard')}
+          className="bg-cyan-500 text-black p-3 rounded-full shadow-lg font-mono text-[10px] hover:scale-110 transition-transform uppercase font-bold"
+        >
+          {currentView === 'leaderboard' ? 'Exit HUD' : 'Open HUD'}
+        </button>
+      </div>
 
       {/* ── Fixed full-site video background ── */}
       <video
@@ -115,41 +128,28 @@ export default function App() {
         <source src="/video/Video%20Project%202.mp4" type="video/mp4" />
       </video>
 
-      {/* Dark tinted overlay */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background:
-            "linear-gradient(135deg, rgba(2,2,8,0.80) 0%, rgba(5,5,24,0.72) 50%, rgba(2,2,8,0.80) 100%)",
-          zIndex: -1,
-        }}
-      />
+      {/* Background Overlays */}
+      <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "linear-gradient(135deg, rgba(2,2,8,0.80) 0%, rgba(5,5,24,0.72) 50%, rgba(2,2,8,0.80) 100%)", zIndex: -1 }} />
+      <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "radial-gradient(ellipse at 50% 30%, rgba(0,245,255,0.06) 0%, rgba(139,0,255,0.04) 50%, transparent 80%)", zIndex: -1 }} />
 
-      {/* Cyan/purple radial accent */}
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          background:
-            "radial-gradient(ellipse at 50% 30%, rgba(0,245,255,0.06) 0%, rgba(139,0,255,0.04) 50%, transparent 80%)",
-          zIndex: -1,
-        }}
-      />
-
-      <Navbar onRegister={() => setIsRegisterOpen(true)} />
-      <Hero onRegister={() => setIsRegisterOpen(true)} />
-      <About />
-      <Timeline />
-      <Abilities />
-      <FAQ />
-      <Footer onRegister={() => setIsRegisterOpen(true)} />
+      {/* ── CONDITIONAL VIEWS ── */}
+      {currentView === 'leaderboard' ? (
+        <FullScreenLeaderboard />
+      ) : currentView === 'admin' ? (
+        <div className="relative z-10 pt-24 min-h-screen flex items-center justify-center p-8">
+        </div>
+      ) : (
+        /* Landing Page Content */
+        <>
+          <Navbar onRegister={() => setIsRegisterOpen(true)} />
+          <Hero onRegister={() => setIsRegisterOpen(true)} />
+          <About />
+          <Timeline />
+          <Abilities />
+          <FAQ />
+          <Footer onRegister={() => setIsRegisterOpen(true)} />
+        </>
+      )}
 
       <RegistrationModal
         isOpen={isRegisterOpen}
