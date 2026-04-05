@@ -1,6 +1,14 @@
 import { Zap, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import React from "react";
 
-const footerLinks = {
+interface FooterLink {
+  label: string;
+  href: string;
+  action?: string;
+  icon?: React.ReactNode;
+}
+
+const footerLinks: Record<string, FooterLink[]> = {
   "Quick Links": [
     { label: "About", href: "#about" },
     { label: "Timeline", href: "#timeline" },
@@ -10,7 +18,6 @@ const footerLinks = {
   ],
   "Contact": [
     { label: "sbmpcemaths@gmail.com", href: "mailto:sbmpcemaths@gmail.com", icon: <Mail className="w-3.5 h-3.5" /> },
-
     { label: "Irla, N. R. G. Marg, opp. Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle, Mumbai - 400056", href: "https://maps.google.com/?q=Irla,NRG+Marg,Opposite+Cooper+Hospital,Vile+Parle,Mumbai,400056", icon: <MapPin className="w-3.5 h-3.5" /> },
   ],
 };
@@ -22,9 +29,10 @@ const socials = [
 interface FooterProps {
   onRegister: () => void;
   onAdminClick: () => void;
+  onOpenLeaderboard: () => void;
 }
 
-export function Footer({ onRegister, onAdminClick }: FooterProps) {
+export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterProps) {
   const handleNavClick = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
