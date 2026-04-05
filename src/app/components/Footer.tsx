@@ -1,11 +1,11 @@
-import { Zap, Twitter, Instagram, Linkedin, Github, Mail, MapPin, Phone } from "lucide-react";
+import { Zap, Instagram, Mail, MapPin, Phone } from "lucide-react";
 
-const footerLinks: Record<string, FooterLink[]> = {
+const footerLinks = {
   "Quick Links": [
     { label: "About", href: "#about" },
     { label: "Timeline", href: "#timeline" },
     { label: "Abilities", href: "#abilities" },
-    { label: "Leaderboard", action: "open_leaderboard" }, // Fixed the double comma here!
+    { label: "Leaderboard", href: "#leaderboard" },
     { label: "FAQ", href: "#faq" }
   ],
   "Contact": [
@@ -19,14 +19,12 @@ const socials = [
   { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/sbmpce_math", label: "Instagram" },
 ];
 
-// 1. Added onAdminClick to the interface
 interface FooterProps {
   onRegister: () => void;
   onAdminClick: () => void;
-  onOpenLeaderboard: () => void;
 }
 
-export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterProps) {
+export function Footer({ onRegister, onAdminClick }: FooterProps) {
   const handleNavClick = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -53,10 +51,7 @@ export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterPr
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <Zap className="w-6 h-6 text-cyan-400" />
-              <span
-                className="text-white"
-                style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.1rem", fontWeight: 700 }}
-              >
+              <span className="text-white" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.1rem", fontWeight: 700 }}>
                 The <span className="text-cyan-400">MARTRIX</span>
               </span>
             </div>
@@ -87,7 +82,7 @@ export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterPr
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    {"href" in link && (link.href as string).startsWith("#") ? (
+                    {link.href.startsWith("#") ? (
                       <button
                         onClick={() => handleNavClick(link.href)}
                         className="text-gray-400 hover:text-cyan-400 transition-colors text-sm flex items-center gap-2 text-left"
@@ -148,16 +143,8 @@ export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterPr
             </p>
           </div>
 
-          {/* Bottom bar */}
-          <div className="border-t border-cyan-500/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-white-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
-              © 2026 The Martrix, SANKHYA. All rights reserved.
-            </p>
-            <p className="text-white-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
-              Irla, N. R. G. Marg, Opposite Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle, Mumbai, Maharashtra 400056
-            </p>
-          </div>
         </div>
+      </div>
     </footer>
   );
 }
