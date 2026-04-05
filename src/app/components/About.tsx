@@ -1,4 +1,4 @@
-import { Code2, Users, Trophy, Heart, Shield, Swords, Activity } from "lucide-react";
+import { Code2, Users, Trophy, Shield, Swords, Activity } from "lucide-react";
 
 const features = [
   {
@@ -66,16 +66,22 @@ export function About() {
         {/* Compact Stats Bar - Smaller text and padding */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-cyan-500/30 border-2 border-cyan-500/40 overflow-hidden rounded-xl shadow-lg">
           {[
-            { value: "3", label: "Players Per Team" }, // [cite: 18]
-            { value: "10", label: "Initial Health" }, // [cite: 16]
+            { value: "3", label: "Players Per Team" },
+            { value: "10", label: "Initial Health" },
             { value: "₹3K+", label: "Total Prize Pool" },
-            { value: "5-6", label: "Tournament Rounds" }, // [cite: 23]
+            { value: "5-6", label: "Tournament Rounds" },
           ].map((stat) => (
             <div key={stat.label} className="bg-[#050518]/90 backdrop-blur-sm p-8 text-center group transition-colors">
-              <div className="text-cyan-400 mb-2 flex flex-row items-center justify-center gap-3" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "2.5rem", fontWeight: 900 }}>
+              <div className="text-cyan-400 mb-2 flex flex-row items-center justify-center gap-0" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "2.5rem", fontWeight: 900 }}>
                 <span>{stat.value}</span>
                 {stat.label === "Initial Health" && (
-                  <Heart size={32} className="text-red-500 fill-red-500 animate-pulse" />
+                  <img
+                    src="/pixel_heart.png"
+                    alt="pixel heart"
+                    width={90}
+                    height={90}
+                    style={{ imageRendering: "pixelated", marginLeft: "-18px", marginRight: "-18px", transform: "translateY(8px)" }}
+                  />
                 )}
               </div>
               <div className="text-gray-400 text-xs md:text-sm font-bold uppercase tracking-widest font-space-grotesk">{stat.label}</div>
