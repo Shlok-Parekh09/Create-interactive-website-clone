@@ -130,7 +130,7 @@ export default function App() {
           zIndex: -2,
         }}
       >
-        <source src="/video/Video%20Project%202.mp4" type="video/mp4" />
+        <source src="/video/bg-video.mp4" type="video/mp4" />
       </video>
 
       {/* Background Overlays */}
