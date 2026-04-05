@@ -41,7 +41,7 @@ export function About() {
             WHAT IS <span style={{ color: "#00f5ff" }}>THE MATRIX</span>?
           </h2>
           <p className="text-gray-100 max-w-4xl mx-auto leading-relaxed text-lg md:text-2xl font-medium opacity-90" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            The Matrix is SANKHYA's premier Game Theory Arena[cite: 8]. Face off in a round-robin format [cite: 20] where you decide between mutual cooperation (+3 pts) or risky betrayal (+5 pts)[cite: 43]. Managing health is critical: hit 0, and face immediate elimination[cite: 15, 16].
+            The Matrix: SANKHYA’s Premier Arena for High-Stakes Game Theory. Every round is a gamble: Cooperate for a steady +3 points, or Betray for a lethal +5. But beware—in this circuit, your Health is your only currency. Hit zero, and you’re permanently disconnected.
           </p>
         </div>
 
