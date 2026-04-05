@@ -3,44 +3,40 @@ import { Plus, Minus } from "lucide-react";
 
 const faqs = [
   {
-    q: "Who can participate in NeoFuture 2026?",
-    a: "NeoFuture is open to all currently enrolled undergraduate and postgraduate students from any college in India. Students from any branch or discipline are welcome to participate.",
+    q: "Who can participate in The Game Theory Arena?",
+    a: "The tournament is open to all currently enrolled undergraduate students. Players from any branch or discipline are welcome — strategy knows no department.",
   },
   {
-    q: "What is the team size?",
-    a: "Teams can have a minimum of 2 members and a maximum of 4 members. Solo registrations are not allowed. All team members must be registered students.",
+    q: "What is the team size and entry fee?",
+    a: "Teams consist of exactly 3 players. There is a one-time entry fee of ₹40 per team (not per person). Make sure all 3 members are present and registered before the tournament begins.",
   },
   {
-    q: "Is there a registration fee?",
-    a: "No! NeoFuture 2026 is completely free to participate. There is no registration fee for participants. Food, accommodation (on campus), and other necessities will be provided during the event.",
+    q: "How does scoring work?",
+    a: "Points are earned through duels using the Cooperate/Betray mechanic. Mutual cooperation gives both players +3 pts. Betraying a cooperator gives you +5 pts but the opponent 0. Mutual betrayal gives only +1 pt both. The team with the highest points at the end wins.",
   },
   {
-    q: "Do I need to have a project idea before registering?",
-    a: "You can register with or without an idea. However, teams will need to submit a brief abstract and problem statement of their planned project after shortlisting. Problem statements will also be revealed at the time of the event.",
+    q: "What happens if my team's health hits zero?",
+    a: "Immediate elimination — regardless of your point total. Teams start with 10 health. Reckless mutual betrayals, Sword and Arrows abilities, and Poison can eat through your health fast. Survival is just as important as scoring.",
   },
   {
-    q: "What should I bring to the hackathon?",
-    a: "Bring your laptop, charger, college ID, and any hardware components you plan to use. Venue WiFi will be provided. You're allowed to bring your own hardware (Raspberry Pi, Arduino, sensors, etc.) based on your track.",
+    q: "How do Secret Abilities work?",
+    a: "Each player holds one secret ability card (Shield, Sword, Poison, Arrows, or Healing Potion), drafted so no two teams have the same setup. Abilities are one-time use per player for the entire tournament and must be declared at the same moment you reveal your Cooperate/Betray choice. Use them wisely — you only get one shot.",
   },
   {
-    q: "Are there mentors available during the hackathon?",
-    a: "Yes! We have 50+ industry mentors from leading tech companies who will be available throughout the 36 hours to guide, review, and provide technical support for your projects.",
+    q: "What is the Bounty System?",
+    a: "After a set number of Round all the participate team can decide one team The bounty team And if the boundary team is killed the team which killed it may get 50% of all points earn by the team",
   },
   {
-    q: "How are projects judged?",
-    a: "Projects are judged based on Innovation (30%), Technical Implementation (30%), Impact & Scalability (20%), Presentation & Demo (20%). A panel of industry experts and academia will evaluate all final submissions.",
+    q: "What is the Cooperation Streak Bonus?",
+    a: "If you and the same opponent mutually cooperate in two consecutive duels (across any rounds), both teams earn a bonus +1 point on that second cooperation. Betraying your streak partner resets the counter to zero — and may trigger a Bounty against you.",
   },
   {
-    q: "Can I use existing code or frameworks?",
-    a: "You can use open-source frameworks, libraries, APIs, and tools. However, the core logic and solution must be built during the hackathon. Using pre-built templates or submitting existing projects is not allowed.",
+    q: "How many rounds are there?",
+    a: "The host announces the total number of rounds before the tournament begins (typically 5 or 6). This number is fixed and visible to all participants throughout — no hidden extensions, no surprises. Every decision counts, especially in the final rounds.",
   },
   {
-    q: "Will there be workshops and activities?",
-    a: "Yes! Alongside hacking, there will be tech talks, workshops on AI/ML, blockchain, and cloud, fun activities, networking sessions, and midnight surprises to keep the energy high.",
-  },
-  {
-    q: "How will I know if my team is shortlisted?",
-    a: "Shortlisted teams will be notified via email by April 22, 2026. Keep an eye on your registered email and also follow our social media channels for updates.",
+    q: "What's the best strategy — cooperate or betray?",
+    a: "That's the game. Pure betrayal burns health and invites Bounties. Pure cooperation leaves you vulnerable to Sword and Arrows. The optimal play shifts every round based on your opponents, your health, your abilities, and the cooperation streaks in play. Read the room — and your opponents.",
   },
 ];
 
@@ -60,7 +56,7 @@ export function FAQ() {
             className="text-cyan-400 text-xs tracking-widest uppercase mb-3"
             style={{ fontFamily: "Share Tech Mono, monospace" }}
           >
-            // QUERIES
+            // INTEL BRIEFING
           </p>
           <h2
             className="text-white"
@@ -73,6 +69,12 @@ export function FAQ() {
             FREQUENTLY ASKED <span style={{ color: "#00f5ff" }}>QUESTIONS</span>
           </h2>
           <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent mx-auto mt-6" />
+          <p
+            className="text-gray-400 mt-4 text-sm"
+            style={{ fontFamily: "Share Tech Mono, monospace" }}
+          >
+            Knowing the rules is your first competitive advantage.
+          </p>
         </div>
 
         {/* FAQ items */}
@@ -82,23 +84,40 @@ export function FAQ() {
               key={index}
               className="border transition-all duration-300"
               style={{
-                borderColor: openIndex === index ? "rgba(0,245,255,0.4)" : "rgba(0,245,255,0.1)",
-                backgroundColor: openIndex === index ? "rgba(0,245,255,0.03)" : "#080820",
-                clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
+                borderColor:
+                  openIndex === index
+                    ? "rgba(0,245,255,0.4)"
+                    : "rgba(0,245,255,0.1)",
+                backgroundColor:
+                  openIndex === index ? "rgba(0,245,255,0.03)" : "#080820",
+                clipPath:
+                  "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
               }}
             >
               <button
                 className="w-full flex items-center justify-between p-5 text-left group"
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                onClick={() =>
+                  setOpenIndex(openIndex === index ? null : index)
+                }
               >
                 <span
-                  className={`transition-colors ${openIndex === index ? "text-cyan-400" : "text-white group-hover:text-cyan-300"}`}
-                  style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: "0.95rem", fontWeight: 500 }}
+                  className={`transition-colors ${
+                    openIndex === index
+                      ? "text-cyan-400"
+                      : "text-white group-hover:text-cyan-300"
+                  }`}
+                  style={{
+                    fontFamily: "Space Grotesk, sans-serif",
+                    fontSize: "0.95rem",
+                    fontWeight: 500,
+                  }}
                 >
                   {faq.q}
                 </span>
                 <span
-                  className={`ml-4 flex-shrink-0 transition-all duration-300 ${openIndex === index ? "text-cyan-400 rotate-0" : "text-gray-500 rotate-0"}`}
+                  className={`ml-4 flex-shrink-0 transition-all duration-300 ${
+                    openIndex === index ? "text-cyan-400" : "text-gray-500"
+                  }`}
                 >
                   {openIndex === index ? (
                     <Minus className="w-5 h-5" />
@@ -110,11 +129,17 @@ export function FAQ() {
 
               <div
                 className="overflow-hidden transition-all duration-300"
-                style={{ maxHeight: openIndex === index ? "300px" : "0px", opacity: openIndex === index ? 1 : 0 }}
+                style={{
+                  maxHeight: openIndex === index ? "300px" : "0px",
+                  opacity: openIndex === index ? 1 : 0,
+                }}
               >
                 <div
                   className="px-5 pb-5 text-gray-400 leading-relaxed border-t border-cyan-500/10 pt-4"
-                  style={{ fontFamily: "Space Grotesk, sans-serif", fontSize: "0.9rem" }}
+                  style={{
+                    fontFamily: "Space Grotesk, sans-serif",
+                    fontSize: "0.9rem",
+                  }}
                 >
                   {faq.a}
                 </div>
@@ -125,16 +150,18 @@ export function FAQ() {
 
         {/* Still have questions */}
         <div className="mt-12 text-center">
-          <p className="text-gray-400 mb-4" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+          <p
+            className="text-gray-400 mb-2"
+            style={{ fontFamily: "Space Grotesk, sans-serif" }}
+          >
             Still have questions?
           </p>
-          <a
-            href="mailto:neofuture@slrtce.in"
-            className="text-cyan-400 hover:text-cyan-300 transition-colors"
+          <p
+            className="text-gray-500 text-xs mb-4"
             style={{ fontFamily: "Share Tech Mono, monospace" }}
           >
-            neofuture@slrtce.in
-          </a>
+            Contact us through the email .
+          </p>
         </div>
       </div>
     </section>
