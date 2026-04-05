@@ -12,10 +12,9 @@ interface TimeLeft {
   seconds: number;
 }
 
-// Fixed date outside component to avoid recreating on every render
-const HACKATHON_DATE = new Date("2026-04-25T09:00:00");
+// Updated to your specific event date
+const EVENT_DATE = new Date("2026-04-25T10:00:00");
 
-// Pre-generated particle data to avoid Math.random() in render
 const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
   id: i,
   left: (((i * 37 + 13) * 97) % 100),
@@ -45,7 +44,7 @@ function useCountdown(targetTimestamp: number): TimeLeft {
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [targetTimestamp]); // stable number, not a Date object
+  }, [targetTimestamp]);
 
   return timeLeft;
 }
@@ -64,7 +63,6 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
         >
           {String(value).padStart(2, "0")}
         </span>
-        {/* Glow effect */}
         <div className="absolute inset-0 shadow-inner shadow-cyan-500/10" />
       </div>
       <span
@@ -78,8 +76,8 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 }
 
 export function Hero({ onRegister }: HeroProps) {
-  const hackathonTimestamp = HACKATHON_DATE.getTime();
-  const timeLeft = useCountdown(hackathonTimestamp);
+  const eventTimestamp = EVENT_DATE.getTime();
+  const timeLeft = useCountdown(eventTimestamp);
 
   const scrollToAbout = () => {
     document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
@@ -141,7 +139,7 @@ export function Hero({ onRegister }: HeroProps) {
           style={{ fontFamily: "Share Tech Mono, monospace" }}
         >
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          SLRTCE PRESENTS
+          SANKHYA PRESENTS
         </div>
 
         {/* Main Title */}
@@ -155,7 +153,7 @@ export function Hero({ onRegister }: HeroProps) {
             letterSpacing: "-2px",
           }}
         >
-          NEO<span style={{ color: "#00f5ff" }}>FUTURE</span>
+          THE <span style={{ color: "#00f5ff" }}>MATRIX</span>
         </h1>
         <div
           className="text-purple-400 mb-6"
@@ -166,7 +164,7 @@ export function Hero({ onRegister }: HeroProps) {
             textShadow: "0 0 20px rgba(139,0,255,0.6)",
           }}
         >
-          HACKATHON 2026
+          PRISONER'S DILEMMA 2026
         </div>
 
         {/* Tagline */}
@@ -177,9 +175,9 @@ export function Hero({ onRegister }: HeroProps) {
             fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
           }}
         >
-          36 Hours of Innovation • April 25–27, 2026 • SLRTCE, Mumbai
+          A High-Stakes Game Theory Challenge • April 25, 2026 • Mumbai
           <br />
-          <span className="text-cyan-300/80">Build the future. Break boundaries. Leave a legacy.</span>
+          <span className="text-cyan-300/80">Collaborate to survive. Betray to win. Solve the logic.</span>
         </p>
 
         {/* Countdown */}
@@ -188,7 +186,7 @@ export function Hero({ onRegister }: HeroProps) {
             className="text-gray-500 mb-4 text-xs tracking-widest uppercase"
             style={{ fontFamily: "Share Tech Mono, monospace" }}
           >
-            — COUNTDOWN TO HACKATHON —
+            — SYSTEM BOOT IN —
           </p>
           <div className="flex items-start justify-center gap-4 sm:gap-6">
             <CountdownUnit value={timeLeft.days} label="Days" />
@@ -215,7 +213,7 @@ export function Hero({ onRegister }: HeroProps) {
               boxShadow: "0 0 30px rgba(0,245,255,0.3)",
             }}
           >
-            <span className="relative z-10">REGISTER NOW</span>
+            <span className="relative z-10">ENTER THE MATRIX</span>
             <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12" />
           </button>
           <button
@@ -229,29 +227,8 @@ export function Hero({ onRegister }: HeroProps) {
               clipPath: "polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)",
             }}
           >
-            LEARN MORE
+            THE RULES
           </button>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-16 grid grid-cols-3 gap-6 max-w-lg mx-auto">
-          {[
-            { value: "500+", label: "Participants" },
-            { value: "₹1L+", label: "Prize Pool" },
-            { value: "36H", label: "Duration" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <div
-                className="text-cyan-400"
-                style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.5rem", fontWeight: 700 }}
-              >
-                {stat.value}
-              </div>
-              <div className="text-gray-500 text-xs mt-1 tracking-wider uppercase" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-                {stat.label}
-              </div>
-            </div>
-          ))}
         </div>
       </div>
 

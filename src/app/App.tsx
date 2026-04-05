@@ -3,9 +3,7 @@ import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { Timeline } from "./components/Timeline";
-import { Tracks } from "./components/Tracks";
-import { Prizes } from "./components/Prizes";
-import { Sponsors } from "./components/Sponsors";
+import { Abilities } from "./components/Abilities";
 import { FAQ } from "./components/FAQ";
 import { Footer } from "./components/Footer";
 import { RegistrationModal } from "./components/RegistrationModal";
@@ -55,7 +53,7 @@ export default function App() {
       if (currentScrollY < 50) {
         isRewinding = false;
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        video.play().catch(() => {});
+        video.play().catch(() => { });
         return;
       }
 
@@ -63,7 +61,7 @@ export default function App() {
         // 🖱️ Scroll DOWN
         isRewinding = false;
         if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        if (video.paused) video.play().catch(() => {});
+        if (video.paused) video.play().catch(() => { });
       } else if (deltaY < 0) {
         // 👆 Scroll UP (rewind)
         video.pause();
@@ -149,9 +147,7 @@ export default function App() {
       <Hero onRegister={() => setIsRegisterOpen(true)} />
       <About />
       <Timeline />
-      <Tracks />
-      <Prizes />
-      <Sponsors />
+      <Abilities />
       <FAQ />
       <Footer onRegister={() => setIsRegisterOpen(true)} />
 
