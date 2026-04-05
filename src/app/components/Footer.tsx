@@ -1,11 +1,19 @@
 import { Zap, Twitter, Instagram, Linkedin, Github, Mail, MapPin, Phone } from "lucide-react";
+import React from "react";
 
-const footerLinks = {
+interface FooterLink {
+  label: string;
+  href?: string;
+  action?: string;
+  icon?: React.ReactNode;
+}
+
+const footerLinks: Record<string, FooterLink[]> = {
   "Quick Links": [
     { label: "About", href: "#about" },
     { label: "Timeline", href: "#timeline" },
     { label: "Abilities", href: "#abilities" },
-    { label: "Leaderboard", href: "#leaderboard" },
+    { label: "Leaderboard", action: "open_leaderboard" }, // Fixed the double comma here!
     { label: "FAQ", href: "#faq" }
   ],
   "Contact": [
@@ -19,13 +27,14 @@ const socials = [
   { icon: <Instagram className="w-5 h-5" />, href: "https://www.instagram.com/sbmpce_math?igsh=MWd4NnZkY3dlZTVqdg==", label: "Instagram" },
 ];
 
-// 1. Added onAdminClick to the interface
+// Added onOpenLeaderboard to the interface!
 interface FooterProps {
   onRegister: () => void;
   onAdminClick: () => void; 
+  onOpenLeaderboard: () => void; 
 }
 
-export function Footer({ onRegister, onAdminClick }: FooterProps) {
+export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterProps) {
   const handleNavClick = (href: string) => {
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -58,7 +67,7 @@ export function Footer({ onRegister, onAdminClick }: FooterProps) {
                 className="text-white"
                 style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.1rem", fontWeight: 700 }}
               >
-                The <span className="text-cyan-400">MARTRIX</span>
+                The <span className="text-cyan-400">MATRIX</span>
               </span>
             </div>
             <p
@@ -95,7 +104,17 @@ export function Footer({ onRegister, onAdminClick }: FooterProps) {
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link.label}>
-                    {"href" in link && (link.href as string).startsWith("#") ? (
+                    {/* Routing logic added here to check for the action! */}
+                    {"action" in link && link.action === "open_leaderboard" ? (
+                      <button
+                        onClick={onOpenLeaderboard}
+                        className="text-gray-500 hover:text-cyan-400 transition-colors text-sm flex items-center gap-2"
+                        style={{ fontFamily: "Space Grotesk, sans-serif" }}
+                      >
+                        {"icon" in link && link.icon}
+                        {link.label}
+                      </button>
+                    ) : "href" in link && (link.href as string).startsWith("#") ? (
                       <button
                         onClick={() => handleNavClick(link.href as string)}
                         className="text-gray-500 hover:text-cyan-400 transition-colors text-sm flex items-center gap-2"
@@ -166,7 +185,7 @@ export function Footer({ onRegister, onAdminClick }: FooterProps) {
         {/* Bottom bar */}
         <div className="border-t border-cyan-500/10 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
-            © 2026 The Martrix, SANKHYA. All rights reserved.
+            © 2026 The Matrix, SANKHYA. All rights reserved.
           </p>
           <p className="text-gray-600 text-xs" style={{ fontFamily: "Share Tech Mono, monospace" }}>
             Irla, N. R. G. Marg, Opposite Cooper Hospital, Navpada, Suvarna Nagar, Vile Parle, Mumbai, Maharashtra 400056

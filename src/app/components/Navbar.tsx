@@ -4,17 +4,17 @@ import { Menu, X, Zap } from "lucide-react";
 const navLinks = [
   { label: "About", href: "#about" },
   { label: "Timeline", href: "#timeline" },
-  { label: "Tracks", href: "#tracks" },
-  { label: "Prizes", href: "#prizes" },
-  { label: "Sponsors", href: "#sponsors" },
+  { label: "Abilities", href: "#abilities" },
+  { label: "Leaderboard", action: "open_leaderboard" },
   { label: "FAQ", href: "#faq" },
 ];
 
 interface NavbarProps {
   onRegister: () => void;
+  onOpenLeaderboard: () => void; // 1. Added the prop here
 }
 
-export function Navbar({ onRegister }: NavbarProps) {
+export function Navbar({ onRegister, onOpenLeaderboard }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -55,7 +55,7 @@ export function Navbar({ onRegister }: NavbarProps) {
               className="text-white group-hover:text-cyan-300 transition-colors"
               style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.1rem", fontWeight: 700 }}
             >
-              NEO<span className="text-cyan-400">FUTURE</span>
+              The<span className="text-cyan-400">Matrix</span>
             </span>
           </button>
 
@@ -63,8 +63,15 @@ export function Navbar({ onRegister }: NavbarProps) {
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               <button
-                key={link.href}
-                onClick={() => handleNavClick(link.href)}
+                key={link.label} // 2. Changed key to label since href might be undefined
+                onClick={() => {
+                  // 3. Routing Logic: Action vs Href
+                  if (link.action === "open_leaderboard") {
+                    onOpenLeaderboard();
+                  } else if (link.href) {
+                    handleNavClick(link.href);
+                  }
+                }}
                 className="text-gray-300 hover:text-cyan-400 transition-colors text-sm relative group"
                 style={{ fontFamily: "Space Grotesk, sans-serif" }}
               >
@@ -105,8 +112,16 @@ export function Navbar({ onRegister }: NavbarProps) {
         <div className="bg-[#050510]/98 backdrop-blur-md border-b border-cyan-500/20 px-4 py-4 flex flex-col gap-4">
           {navLinks.map((link) => (
             <button
-              key={link.href}
-              onClick={() => handleNavClick(link.href)}
+              key={link.label} // 2. Changed key to label
+              onClick={() => {
+                // 3. Routing Logic for Mobile
+                if (link.action === "open_leaderboard") {
+                  setIsOpen(false);
+                  onOpenLeaderboard();
+                } else if (link.href) {
+                  handleNavClick(link.href);
+                }
+              }}
               className="text-gray-300 hover:text-cyan-400 transition-colors text-sm text-left py-2 border-b border-gray-800"
               style={{ fontFamily: "Space Grotesk, sans-serif" }}
             >
