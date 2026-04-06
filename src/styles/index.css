@@ -1,3 +1,89 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+@layer utilities {
+  @keyframes minecraft-heart-pulse {
+    0%, 58%, 100% {
+      transform: scale(1);
+    }
+
+    12% {
+      transform: scale(1.14);
+    }
+
+    24% {
+      transform: scale(0.96);
+    }
+
+    36% {
+      transform: scale(1.08);
+    }
+  }
+
+  @keyframes minecraft-heart-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+
+    22% {
+      transform: translateY(-2px);
+    }
+
+    44% {
+      transform: translateY(0);
+    }
+
+    56% {
+      transform: translateY(-1px);
+    }
+  }
+
+  @keyframes minecraft-heart-critical-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+
+    20% {
+      transform: translateY(-5px);
+    }
+
+    42% {
+      transform: translateY(0);
+    }
+
+    62% {
+      transform: translateY(-2px);
+    }
+  }
+
+  .minecraft-heart-shell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center bottom;
+    will-change: transform;
+  }
+
+  .minecraft-heart-sprite {
+    display: block;
+    image-rendering: pixelated;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .minecraft-heart-pulse {
+    display: inline-flex;
+    transform-origin: center;
+    animation: minecraft-heart-pulse 900ms steps(2, end) infinite;
+    will-change: transform;
+  }
+
+  .minecraft-heart-bounce {
+    animation: minecraft-heart-bounce 900ms steps(2, end) infinite;
+  }
+
+  .minecraft-heart-critical-bounce {
+    animation: minecraft-heart-critical-bounce 600ms steps(2, end) infinite;
+  }
+}
