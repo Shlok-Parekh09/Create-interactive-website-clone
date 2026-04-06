@@ -1,4 +1,4 @@
-import { Heart, HeartOff, CheckCircle, XCircle } from "lucide-react"; 
+import { Heart, HeartOff, CheckCircle, XCircle } from "lucide-react";
 
 export type TeamProps = {
   id: number;
@@ -16,28 +16,28 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
   return (
     // CHANGED: Replaced bg-[#02020a] with bg-transparent so the video from App.tsx shows through!
     <div className="fixed inset-0 z-[100] bg-transparent flex flex-col font-space-grotesk overflow-hidden">
-      
+
       {/* Cinematic Header */}
       <div className="relative z-10 px-4 py-4 md:px-8 md:py-6 border-b border-white/5 bg-[#050518]/80 backdrop-blur-xl flex justify-between items-center">
         <div className="flex items-center gap-3 md:gap-4">
           <div className="w-2 h-2 bg-red-600 rounded-full animate-ping flex-shrink-0" />
           <h1 className="text-white font-orbitron text-lg md:text-2xl font-black tracking-tighter uppercase truncate">
-            The <span className="text-cyan-400">Leaderboard</span> 
+            The <span className="text-cyan-400">Leaderboard</span>
           </h1>
         </div>
         <div className="flex items-center gap-8">
-            <div className="hidden md:flex gap-6 text-[10px] font-mono text-gray-500 uppercase tracking-[0.4em]">
-                <span>// 10_HP_MAX</span>
-                <span>// BOUNTY_50_PCT</span>
-                <span>// NORMAL_25_PCT</span>
-            </div>
+          <div className="hidden md:flex gap-6 text-[10px] font-mono text-gray-500 uppercase tracking-[0.4em]">
+            <span>// 10_HP_MAX</span>
+            <span>// BOUNTY_50_PCT</span>
+            <span>// NORMAL_25_PCT</span>
+          </div>
         </div>
       </div>
 
       {/* Main Grid */}
       <div className="flex-1 relative z-10 px-3 py-6 md:px-6 md:py-8 overflow-y-auto">
         <div className="max-w-5xl mx-auto space-y-4 md:space-y-6">
-          
+
           {/* ── EMPTY STATE ── */}
           {sortedTeams.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-48 md:h-64 border-2 border-dashed border-white/10 bg-black/40 backdrop-blur-sm mx-2 md:mx-0">
@@ -49,10 +49,10 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
             /* ── TEAM ROWS ── */
             sortedTeams.map((team, index) => (
               <div key={team.id} className="w-full">
-                
-                <div 
+
+                <div
                   className="relative p-4 md:p-6 border-2 bg-[#050518]/70 backdrop-blur-xl hover:border-white/40 transition-all duration-300 group flex flex-col md:flex-row md:items-center justify-between"
-                  style={{ 
+                  style={{
                     borderColor: team.isBounty ? "#eab308" : `${team.color}40`,
                     clipPath: "polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px))",
                     boxShadow: team.isBounty ? "0 0 20px rgba(234, 179, 8, 0.15) inset" : "none"
@@ -76,28 +76,29 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                   </div>
 
                   {/* Heart Vitals */}
-                  <div className="flex items-center gap-1 md:gap-1.5 justify-start md:justify-center flex-1 mb-4 md:mb-0 flex-wrap">
+                  <div className="flex items-center gap-1 md:gap-1.5 justify-center flex-1 mb-4 md:mb-0">
                     {[...Array(10)].map((_, i) => (
-                      <span key={i} className="flex items-center justify-center">
+                      <div key={i} className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 flex items-center justify-center">
                         {i < team.health ? (
                           <img
                             src="/pixel_heart.png"
                             alt="heart"
-                            className={`w-6 h-6 md:w-8 md:h-8 object-contain ${team.health <= 3 ? "animate-pulse" : ""}`}
-                            style={{ 
+                            // CHANGED: Increased from translate-y-[3px] to translate-y-[5px]
+                            className={`w-full h-full object-contain scale-[1.7] translate-y-[5px] ${team.health <= 3 ? "animate-pulse" : ""}`}
+                            style={{
                               imageRendering: "pixelated",
-                              filter: `drop-shadow(0 0 6px ${team.color})`
+                              filter: `drop-shadow(0 0 4px ${team.color})`
                             }}
                           />
                         ) : (
                           <img
-                            src="/pixel_heart.png"
+                            src="/pixel_heart_empty.png"
                             alt="empty heart"
-                            className="w-5 h-5 md:w-6 md:h-6 object-contain opacity-20 grayscale sepia hue-rotate-[200deg] brightness-50"
+                            className="w-full h-full object-contain opacity-30"
                             style={{ imageRendering: "pixelated" }}
                           />
                         )}
-                      </span>
+                      </div>
                     ))}
                   </div>
 
@@ -128,14 +129,14 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
         </div>
       </div>
 
-      {/* Cinematic Bottom Ticker - Added glass effect to match */}
+      {/* Cinematic Bottom Ticker */}
       <div className="bg-[#050518]/80 backdrop-blur-md border-t border-white/5 p-3 md:p-4 relative z-10 overflow-hidden">
-         <div className="flex items-center gap-8 md:gap-16 animate-marquee whitespace-nowrap">
-            {[1, 2, 3].map(i => (
-              <span key={i} className="text-gray-500 font-mono text-[8px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em]">
-                * SYSTEM ALERT: <span className="text-yellow-500">BOUNTY PROTOCOL ACTIVE (50%)</span> * 0 HP RESULTS IN IMMEDIATE VOID * ALL ABILITIES ARE ONE-TIME USE * TRACK YOUR VITALS * </span>
-            ))}
-         </div>
+        <div className="flex items-center gap-8 md:gap-16 animate-marquee whitespace-nowrap">
+          {[1, 2, 3].map(i => (
+            <span key={i} className="text-gray-500 font-mono text-[8px] md:text-[10px] uppercase tracking-[0.3em] md:tracking-[0.5em]">
+              * SYSTEM ALERT: <span className="text-yellow-500">BOUNTY PROTOCOL ACTIVE (50%)</span> * 0 HP RESULTS IN IMMEDIATE VOID * ALL ABILITIES ARE ONE-TIME USE * TRACK YOUR VITALS * </span>
+          ))}
+        </div>
       </div>
     </div>
   );
