@@ -60,7 +60,7 @@ export function Footer({ onRegister, onAdminClick, onOpenLeaderboard }: FooterPr
             <div className="flex items-center gap-2 mb-4">
               <Zap className="w-6 h-6 text-cyan-400" />
               <span className="text-white" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.1rem", fontWeight: 700 }}>
-                The <span className="text-cyan-400">MARTRIX</span>
+                The <span className="text-cyan-400">MATRIX</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm mb-6 leading-relaxed" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
