@@ -78,14 +78,24 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                   {/* Heart Vitals */}
                   <div className="flex items-center gap-1 md:gap-1.5 justify-start md:justify-center flex-1 mb-4 md:mb-0 flex-wrap">
                     {[...Array(10)].map((_, i) => (
-                      <span key={i}>
+                      <span key={i} className="flex items-center justify-center">
                         {i < team.health ? (
-                          <Heart 
-                            className={`w-5 h-5 md:w-6 md:h-6 ${team.health <= 3 ? "animate-pulse" : ""} drop-shadow-[0_0_5px_currentColor]`} 
-                            style={{ color: team.color, fill: team.color }} 
+                          <img
+                            src="/pixel_heart.png"
+                            alt="heart"
+                            className={`w-6 h-6 md:w-8 md:h-8 object-contain ${team.health <= 3 ? "animate-pulse" : ""}`}
+                            style={{ 
+                              imageRendering: "pixelated",
+                              filter: `drop-shadow(0 0 6px ${team.color})`
+                            }}
                           />
                         ) : (
-                          <HeartOff className="w-4 h-4 md:w-[18px] md:h-[18px] text-white/10" />
+                          <img
+                            src="/pixel_heart.png"
+                            alt="empty heart"
+                            className="w-5 h-5 md:w-6 md:h-6 object-contain opacity-20 grayscale sepia hue-rotate-[200deg] brightness-50"
+                            style={{ imageRendering: "pixelated" }}
+                          />
                         )}
                       </span>
                     ))}
