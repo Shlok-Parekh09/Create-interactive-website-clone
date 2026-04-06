@@ -1,7 +1,7 @@
 import { CheckCircle, XCircle } from "lucide-react";
 
 const HEART_IMAGE_SRC = "/minecraft_hardcore_heart.png";
-const EMPTY_HEART_IMAGE_SRC = "/minecraft_hardcore_heart_empty.png";
+const EMPTY_HEART_IMAGE_SRC = "/minecraft_hardcore_null.png";
 
 export type TeamProps = {
   id: number;
