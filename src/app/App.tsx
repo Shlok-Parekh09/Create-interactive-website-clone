@@ -76,7 +76,43 @@ export default function App() {
     video.play().catch(() => {
       console.log("Initial autoplay prevented by browser.");
     });
-  }, []);
+
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      if (currentView !== 'landing') return;
+
+      if (scrollTimeout.current) window.clearTimeout(scrollTimeout.current);
+      const currentScrollY = window.scrollY;
+      const deltaY = currentScrollY - lastScrollY;
+      lastScrollY = currentScrollY;
+
+      // Top of page: just play video smoothly
+      if (currentScrollY < 50) {
+        if (video.paused) video.play().catch(() => { });
+        return;
+      }
+
+      if (deltaY > 0) {
+        // Scrolling down: play video (giving the illusion of advancing with scroll)
+        if (video.paused) video.play().catch(() => { });
+      } else if (deltaY < 0) {
+        // Scrolling up: pause video immediately, do not scrub
+        if (!video.paused) video.pause();
+      }
+
+      // When scroll stops, pause the video
+      scrollTimeout.current = window.setTimeout(() => {
+        if (!video.paused) video.pause();
+      }, 150);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout.current) window.clearTimeout(scrollTimeout.current);
+    };
+  }, [currentView]);
 
   return (
     <div className="min-h-screen" style={{ background: "transparent" }}>
