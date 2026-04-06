@@ -137,10 +137,10 @@ export function Hero({ onRegister }: HeroProps) {
       {/* Main content */}
       <div className="relative z-10 text-center px-4 max-w-xl mx-auto sm:max-w-3xl lg:max-w-5xl">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 text-[11px] tracking-widest uppercase"
+        <div className="inline-flex items-center gap-3 mb-8 px-6 py-3 border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 text-sm tracking-widest uppercase"
           style={{ fontFamily: "Share Tech Mono, monospace" }}
         >
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
           SANKHYA PRESENTS
         </div>
 
