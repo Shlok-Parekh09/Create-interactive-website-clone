@@ -76,65 +76,7 @@ export default function App() {
     video.play().catch(() => {
       console.log("Initial autoplay prevented by browser.");
     });
-
-    let lastScrollY = window.scrollY;
-    let targetTime = 0;
-    let isRewinding = false;
-    let animationFrameId: number;
-
-    const smoothRewind = () => {
-      if (!video || !isRewinding) return;
-      video.currentTime += (targetTime - video.currentTime) * 0.1;
-      if (Math.abs(targetTime - video.currentTime) < 0.01) {
-        isRewinding = false;
-        video.pause();
-      } else {
-        animationFrameId = requestAnimationFrame(smoothRewind);
-      }
-    };
-
-    const handleScroll = () => {
-      if (currentView !== 'landing') return;
-
-      if (scrollTimeout.current) window.clearTimeout(scrollTimeout.current);
-      const currentScrollY = window.scrollY;
-      const deltaY = currentScrollY - lastScrollY;
-      lastScrollY = currentScrollY;
-
-      if (currentScrollY < 50) {
-        isRewinding = false;
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        video.play().catch(() => { });
-        return;
-      }
-
-      if (deltaY > 0) {
-        isRewinding = false;
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        if (video.paused) video.play().catch(() => { });
-      } else if (deltaY < 0) {
-        video.pause();
-        if (!isRewinding) {
-          targetTime = video.currentTime;
-          isRewinding = true;
-          smoothRewind();
-        }
-        const rewindAmount = Math.abs(deltaY) * 0.008;
-        targetTime = Math.max(0, targetTime - rewindAmount);
-      }
-
-      scrollTimeout.current = window.setTimeout(() => {
-        if (!isRewinding) video.pause();
-      }, 150);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout.current) window.clearTimeout(scrollTimeout.current);
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-    };
-  }, [currentView]);
+  }, []);
 
   return (
     <div className="min-h-screen" style={{ background: "transparent" }}>
@@ -154,6 +96,7 @@ export default function App() {
           height: "100%",
           objectFit: "cover",
           zIndex: -2,
+          transform: "translateZ(0)",
         }}
       >
         <source src="/video/bg-video.mp4" type="video/mp4" />
