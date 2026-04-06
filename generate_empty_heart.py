@@ -5,20 +5,20 @@ def generate():
     pixels = img.load()
     
     # Outer black border exactly matching your image
-    black = (0, 0, 0, 255)
+    white = (255, 255, 255, 255)
     border_pixels = [
         (2, 0), (3, 0), (5, 0), (6, 0),
-        (1, 1), (4, 1), (7, 1),           # (4, 1) adds the black dip at the top center
+        (1, 1), (4, 1), (7, 1),          
         (0, 2), (8, 2),
         (0, 3), (8, 3),
         (0, 4), (8, 4),
         (1, 5), (7, 5),
         (2, 6), (6, 6),
-        (3, 7), (5, 7),
+        (3, 7), 
         (4, 8)
     ]
     for x, y in border_pixels:
-        pixels[x, y] = black
+        pixels[x, y] = white
         
     # Dark gray inner fill exactly matching your image
     gray = (65, 65, 65, 255) 

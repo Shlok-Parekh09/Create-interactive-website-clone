@@ -1,4 +1,24 @@
-import { Heart, HeartOff, CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
+
+// 1. Pure SVG Pixel Heart (Full) - Automatically uses Team Color!
+const PixelHeartFull = ({ className, color }: { className?: string, color: string }) => (
+  <svg viewBox="0 0 9 10" xmlns="http://www.w3.org/2000/svg" className={className} style={{ shapeRendering: "crispEdges", filter: `drop-shadow(0 0 6px ${color})` }}>
+    {/* Inner fill */}
+    <path fill={color} d="M2 1h2v1H2zM5 1h2v1H5zM1 2h7v3H1zM2 5h5v1H2zM3 6h3v1H3zM4 7h1v1H4z" />
+    {/* White Outer Border */}
+    <path fill="#ffffff" d="M2 0h2v1H2zM5 0h2v1H5zM1 1h1v1H1zM4 1h1v1H4zM7 1h1v1H7zM0 2h1v3H0zM8 2h1v3H8zM1 5h1v1H1zM7 5h1v1H7zM2 6h1v1H2zM6 6h1v1H6zM3 7h1v1H3zM5 7h1v1H5zM4 8h1v2H4z" />
+  </svg>
+);
+
+// 2. Pure SVG Pixel Heart (Empty)
+const PixelHeartEmpty = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 9 10" xmlns="http://www.w3.org/2000/svg" className={className} style={{ shapeRendering: "crispEdges" }}>
+    {/* Dark Gray Inner Fill */}
+    <path fill="#414141" d="M2 1h2v1H2zM5 1h2v1H5zM1 2h7v3H1zM2 5h5v1H2zM3 6h3v1H3zM4 7h1v1H4z" />
+    {/* White Outer Border */}
+    <path fill="#ffffff" d="M2 0h2v1H2zM5 0h2v1H5zM1 1h1v1H1zM4 1h1v1H4zM7 1h1v1H7zM0 2h1v3H0zM8 2h1v3H8zM1 5h1v1H1zM7 5h1v1H7zM2 6h1v1H2zM6 6h1v1H6zM3 7h1v1H3zM5 7h1v1H5zM4 8h1v2H4z" />
+  </svg>
+);
 
 export type TeamProps = {
   id: number;
@@ -14,7 +34,6 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
   const sortedTeams = [...teams].sort((a, b) => b.points - a.points);
 
   return (
-    // CHANGED: Replaced bg-[#02020a] with bg-transparent so the video from App.tsx shows through!
     <div className="fixed inset-0 z-[100] bg-transparent flex flex-col font-space-grotesk overflow-hidden">
 
       {/* Cinematic Header */}
@@ -75,27 +94,18 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                     </div>
                   </div>
 
-                  {/* Heart Vitals */}
+                  {/* SVG Heart Vitals */}
                   <div className="flex items-center gap-1 md:gap-1.5 justify-center flex-1 mb-4 md:mb-0">
                     {[...Array(10)].map((_, i) => (
                       <div key={i} className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 flex items-center justify-center">
                         {i < team.health ? (
-                          <img
-                            src="/pixel_heart.png"
-                            alt="heart"
-                            // CHANGED: Increased from translate-y-[3px] to translate-y-[5px]
-                            className={`w-full h-full object-contain scale-[1.7] translate-y-[5px] ${team.health <= 3 ? "animate-pulse" : ""}`}
-                            style={{
-                              imageRendering: "pixelated",
-                              filter: `drop-shadow(0 0 4px ${team.color})`
-                            }}
+                          <PixelHeartFull
+                            color={team.color}
+                            className={`w-full h-full object-contain ${team.health <= 3 ? "animate-pulse" : ""}`}
                           />
                         ) : (
-                          <img
-                            src="/pixel_heart_empty.png"
-                            alt="empty heart"
-                            className="w-full h-full object-contain opacity-30"
-                            style={{ imageRendering: "pixelated" }}
+                          <PixelHeartEmpty
+                            className="w-full h-full object-contain opacity-40"
                           />
                         )}
                       </div>
