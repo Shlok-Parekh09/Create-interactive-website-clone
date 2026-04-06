@@ -94,7 +94,7 @@ export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }
   };
 
   return (
-    <div className="p-6 md:p-8 bg-[#050518]/95 border-2 border-cyan-500/20 rounded-xl font-space-grotesk max-w-6xl mx-auto backdrop-blur-xl h-full overflow-y-auto">
+    <div className="p-3 sm:p-6 md:p-8 bg-[#050518]/95 border-2 border-cyan-500/20 rounded-xl font-space-grotesk max-w-6xl w-full mx-auto backdrop-blur-xl h-full overflow-y-auto overflow-x-hidden">
       
       {/* HEADER & GLOBAL STATS */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 border-b border-white/10 pb-6">
@@ -107,14 +107,14 @@ export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }
           </p>
         </div>
         
-        <div className="flex gap-4">
-          <div className="bg-[#080820] border border-cyan-500/30 p-3 rounded text-center min-w-[120px]">
-            <div className="text-[10px] text-cyan-500 font-mono uppercase mb-1">Total System Credits</div>
-            <div className="text-2xl font-orbitron font-black text-white">{totalScore}</div>
+        <div className="flex gap-2 sm:gap-4 w-full md:w-auto">
+          <div className="flex-1 md:flex-none bg-[#080820] border border-cyan-500/30 p-2 sm:p-3 rounded text-center min-w-[80px] md:min-w-[120px]">
+            <div className="text-[9px] sm:text-[10px] text-cyan-500 font-mono uppercase mb-1">Total System Credits</div>
+            <div className="text-xl sm:text-2xl font-orbitron font-black text-white">{totalScore}</div>
           </div>
-          <div className="bg-[#080820] border border-green-500/30 p-3 rounded text-center min-w-[120px]">
-            <div className="text-[10px] text-green-500 font-mono uppercase mb-1">Active Triads</div>
-            <div className="text-2xl font-orbitron font-black text-white">{aliveTeams} / {teams.length}</div>
+          <div className="flex-1 md:flex-none bg-[#080820] border border-green-500/30 p-2 sm:p-3 rounded text-center min-w-[80px] md:min-w-[120px]">
+            <div className="text-[9px] sm:text-[10px] text-green-500 font-mono uppercase mb-1">Active Triads</div>
+            <div className="text-xl sm:text-2xl font-orbitron font-black text-white">{aliveTeams} / {teams.length}</div>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }
       {/* TEAM CONTROLS LIST */}
       <div className="space-y-4">
         {teams.map(team => (
-          <div key={team.id} className="flex flex-col xl:flex-row xl:items-center justify-between p-5 bg-[#0a0a25] border-l-4 border-y border-r border-white/5 rounded-lg transition-all" style={{ borderLeftColor: team.color }}>
+          <div key={team.id} className="flex flex-col xl:flex-row xl:items-center justify-between p-3 sm:p-5 bg-[#0a0a25] border-l-4 border-y border-r border-white/5 rounded-lg transition-all overflow-hidden" style={{ borderLeftColor: team.color }}>
             
             {/* 1. Identity & Status */}
             <div className="flex justify-between xl:w-1/4 mb-4 xl:mb-0">
@@ -154,10 +154,10 @@ export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }
             {/* 2. Point Adjustments (-1 Update) */}
             <div className="flex flex-wrap gap-2 xl:w-auto mb-4 xl:mb-0 bg-black/20 p-2 rounded">
               <span className="text-[9px] text-gray-500 font-mono uppercase w-full mb-1">Adjust Credits</span>
-              <button onClick={() => adjustPoints(team.id, 1)} className="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white transition rounded text-xs font-mono font-bold">+1</button>
-              <button onClick={() => adjustPoints(team.id, 3)} className="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white transition rounded text-xs font-mono font-bold">+3</button>
-              <button onClick={() => adjustPoints(team.id, 5)} className="px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white transition rounded text-xs font-mono font-bold">+5</button>
-              <button onClick={() => adjustPoints(team.id, -1)} className="px-3 py-1 bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded text-xs font-mono font-bold">-1</button>
+               <button onClick={() => adjustPoints(team.id, 1)} className="flex-1 sm:flex-none justify-center px-3 py-2 sm:py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white transition rounded text-xs font-mono font-bold">+1</button>
+               <button onClick={() => adjustPoints(team.id, 3)} className="flex-1 sm:flex-none justify-center px-3 py-2 sm:py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white transition rounded text-xs font-mono font-bold">+3</button>
+               <button onClick={() => adjustPoints(team.id, 5)} className="flex-1 sm:flex-none justify-center px-3 py-2 sm:py-1 bg-blue-500/10 text-blue-400 border border-blue-500/30 hover:bg-blue-500 hover:text-white transition rounded text-xs font-mono font-bold">+5</button>
+               <button onClick={() => adjustPoints(team.id, -1)} className="flex-1 sm:flex-none justify-center px-3 py-2 sm:py-1 bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded text-xs font-mono font-bold">-1</button>
             </div>
 
             {/* 3. Health & Combat Controls */}

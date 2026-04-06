@@ -203,8 +203,8 @@ export default function App() {
       
       /* 3. THE ADMIN COMMAND CENTER */
       ) : currentView === 'admin' ? (
-        <div className="relative z-10 pt-20 min-h-screen flex flex-col items-center p-8">
-          <div className="max-w-6xl w-full mb-4 flex justify-end gap-4">
+        <div className="relative z-10 pt-20 pb-10 min-h-screen flex flex-col items-center p-2 sm:p-4 md:p-8 w-full overflow-x-hidden">
+          <div className="max-w-6xl w-full mb-4 flex justify-end gap-4 px-2">
             <button onClick={() => setCurrentView('landing')} className="bg-red-500/10 text-red-400 border border-red-500/30 px-4 py-2 font-mono text-xs uppercase hover:bg-red-500 hover:text-white transition">
               Logout System
             </button>
