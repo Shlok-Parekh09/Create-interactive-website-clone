@@ -144,10 +144,10 @@ export default function App() {
 
       {/* ── PUBLIC HUD TOGGLE (Floating Bottom Right) ── */}
       {(currentView === 'landing' || currentView === 'leaderboard') && (
-        <div className="fixed bottom-6 right-6 z-[200]">
+        <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[200]">
           <button
             onClick={() => setCurrentView(currentView === 'leaderboard' ? 'landing' : 'leaderboard')}
-            className={`flex items-center gap-2 p-4 rounded-full shadow-lg font-mono text-sm hover:scale-110 transition-all uppercase font-black ${
+            className={`flex items-center gap-2 p-3 md:p-4 rounded-full shadow-lg font-mono text-[10px] md:text-sm hover:scale-110 transition-all uppercase font-black ${
               currentView === 'leaderboard' 
                 ? 'bg-red-600 text-white shadow-[0_0_20px_rgba(220,38,38,0.4)]' 
                 : 'bg-cyan-500 text-black shadow-[0_0_20px_rgba(0,245,255,0.4)]'
@@ -155,7 +155,7 @@ export default function App() {
           >
             {currentView === 'leaderboard' ? 'Exit The Leaderboard' : (
               <>
-                <Activity size={18} className="animate-pulse" /> Open The Leaderboard
+                <Activity size={16} className="animate-pulse md:w-[18px] md:h-[18px]" /> <span className="hidden sm:inline">Open The </span>Leaderboard
               </>
             )}
           </button>

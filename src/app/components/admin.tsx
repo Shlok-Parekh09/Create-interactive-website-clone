@@ -120,15 +120,15 @@ export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }
       </div>
 
       {/* ADD NEW TEAM FORM */}
-      <form onSubmit={addTeam} className="flex gap-4 mb-8 bg-[#080820] p-4 rounded-lg border border-white/5">
+      <form onSubmit={addTeam} className="flex flex-col sm:flex-row gap-4 mb-8 bg-[#080820] p-4 rounded-lg border border-white/5">
         <input 
           type="text" 
           value={newTeamName}
           onChange={(e) => setNewTeamName(e.target.value)}
           placeholder="ENTER NEW TEAM DESIGNATION..." 
-          className="flex-1 bg-transparent border-b-2 border-white/10 text-white font-orbitron px-4 py-2 focus:outline-none focus:border-cyan-400 transition-colors uppercase placeholder:text-gray-600"
+          className="w-full sm:flex-1 bg-transparent border-b-2 border-white/10 text-white font-orbitron px-4 py-2 focus:outline-none focus:border-cyan-400 transition-colors uppercase placeholder:text-gray-600"
         />
-        <button type="submit" className="bg-cyan-500 text-black px-6 font-bold font-mono text-xs uppercase flex items-center gap-2 hover:bg-cyan-400 transition-colors rounded-sm">
+        <button type="submit" className="w-full sm:w-auto justify-center bg-cyan-500 text-black px-6 py-3 sm:py-2 font-bold font-mono text-xs uppercase flex items-center gap-2 hover:bg-cyan-400 transition-colors rounded-sm">
           <UserPlus size={16} /> Deploy Team
         </button>
       </form>
@@ -163,30 +163,30 @@ export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }
             {/* 3. Health & Combat Controls */}
             <div className="flex flex-wrap gap-2 xl:w-auto mb-4 xl:mb-0 bg-black/20 p-2 rounded">
                <span className="text-[9px] text-gray-500 font-mono uppercase w-full mb-1">Vitals & Combat</span>
-               <button onClick={() => adjustHealth(team.id, -1)} className="p-1.5 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded" title="Take Damage"><Swords size={16} /></button>
-               <button onClick={() => adjustHealth(team.id, 1)} className="p-1.5 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white transition rounded" title="Heal"><Heart size={16} /></button>
-               <button onClick={() => toggleBounty(team.id)} className={`px-3 py-1 text-xs font-bold font-mono transition rounded border ${team.isBounty ? "bg-yellow-500 text-black border-yellow-500" : "bg-yellow-500/10 text-yellow-500 border-yellow-500/30 hover:bg-yellow-500/20"}`}>BOUNTY</button>
-               <button onClick={() => declareDead(team.id)} className="p-1.5 bg-red-900/40 text-red-500 border border-red-500/50 hover:bg-red-600 hover:text-white transition rounded" title="Declare Dead"><Skull size={16} /></button>
+               <button onClick={() => adjustHealth(team.id, -1)} className="flex-1 sm:flex-none justify-center flex p-1.5 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded" title="Take Damage"><Swords size={16} /></button>
+               <button onClick={() => adjustHealth(team.id, 1)} className="flex-1 sm:flex-none justify-center flex p-1.5 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white transition rounded" title="Heal"><Heart size={16} /></button>
+               <button onClick={() => toggleBounty(team.id)} className={`flex-1 sm:flex-none px-3 py-1 text-xs font-bold font-mono transition rounded border ${team.isBounty ? "bg-yellow-500 text-black border-yellow-500" : "bg-yellow-500/10 text-yellow-500 border-yellow-500/30 hover:bg-yellow-500/20"}`}>BOUNTY</button>
+               <button onClick={() => declareDead(team.id)} className="flex-1 sm:flex-none justify-center flex p-1.5 bg-red-900/40 text-red-500 border border-red-500/50 hover:bg-red-600 hover:text-white transition rounded" title="Declare Dead"><Skull size={16} /></button>
             </div>
 
             {/* 4. Round History (Railroad Sync + Undo Update) */}
             <div className="flex flex-wrap gap-2 xl:w-auto mb-4 xl:mb-0 bg-black/20 p-2 rounded items-center">
               <span className="text-[9px] text-gray-500 font-mono uppercase w-full mb-1">Log Round (Updates HUD)</span>
-              <button onClick={() => updateHistory(team.id, 'safe')} className="px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white transition rounded text-xs font-mono font-bold flex gap-1 items-center">
+              <button onClick={() => updateHistory(team.id, 'safe')} className="flex-1 sm:flex-none justify-center px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white transition rounded text-xs font-mono font-bold flex gap-1 items-center">
                 <ShieldCheck size={12} /> COOP
               </button>
-              <button onClick={() => updateHistory(team.id, 'hit')} className="px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded text-xs font-mono font-bold flex gap-1 items-center">
+              <button onClick={() => updateHistory(team.id, 'hit')} className="flex-1 sm:flex-none justify-center px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded text-xs font-mono font-bold flex gap-1 items-center">
                 <Swords size={12} /> BETRAY
               </button>
-              <button onClick={() => undoHistory(team.id)} className="px-2 py-1 bg-gray-500/10 text-gray-400 border border-gray-500/30 hover:bg-gray-500 hover:text-white transition rounded text-xs font-mono flex gap-1 items-center" title="Undo Last Entry">
-                <RotateCcw size={14} />
+              <button onClick={() => undoHistory(team.id)} className="flex-1 sm:flex-none justify-center px-3 py-1 bg-gray-500/10 text-gray-400 border border-gray-500/30 hover:bg-gray-500 hover:text-white transition rounded text-xs font-mono flex gap-1 items-center" title="Undo Last Entry">
+                <RotateCcw size={14} /> <span className="sm:hidden">UNDO</span>
               </button>
             </div>
 
             {/* 5. Danger Zone */}
-            <div className="flex items-center">
-              <button onClick={() => removeTeam(team.id)} className="p-2 text-gray-600 hover:text-red-500 hover:bg-red-500/10 rounded transition" title="Delete Team">
-                <Trash2 size={18} />
+            <div className="flex items-center w-full xl:w-auto mt-2 xl:mt-0 pt-4 border-t border-white/5 xl:border-none xl:pt-0">
+              <button onClick={() => removeTeam(team.id)} className="w-full xl:w-auto justify-center flex items-center gap-2 p-2 text-gray-400 font-mono text-xs hover:text-red-500 hover:bg-red-500/10 rounded transition" title="Delete Team">
+                <Trash2 size={16} /> <span className="xl:hidden">DELETE TEAM</span>
               </button>
             </div>
 
