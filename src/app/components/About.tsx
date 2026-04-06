@@ -46,7 +46,7 @@ export function About() {
         </div>
 
         {/* Tactical Cards - Reduced padding and min-height */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div id="rules" className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {features.map((feat) => (
             <div
               key={feat.title}

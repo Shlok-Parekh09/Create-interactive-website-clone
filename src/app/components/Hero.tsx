@@ -80,7 +80,7 @@ export function Hero({ onRegister }: HeroProps) {
   const timeLeft = useCountdown(eventTimestamp);
 
   const scrollToAbout = () => {
-    document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector("#rules")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
