@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -47,7 +47,7 @@ export function Navbar({ onRegister, onOpenLeaderboard }: NavbarProps) {
             className="flex items-center gap-2 group"
           >
             <div className="relative">
-              <Zap className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
+              <img src="/sankhya-logo.png" alt="Sankhya" className="w-8 h-8 object-contain" />
               <div className="absolute inset-0 blur-sm bg-cyan-400/30 group-hover:bg-cyan-300/40 transition-colors rounded-full" />
             </div>
             <span
