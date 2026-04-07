@@ -77,7 +77,8 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1 md:gap-1.5 justify-center flex-1 mb-4 md:mb-0">
+                    {/* Updated Hearts Container */}
+                    <div className="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 justify-center w-full md:flex-1 min-w-0 mb-4 md:mb-0 px-2 md:px-4">
                       {[...Array(10)].map((_, i) => {
                         const isFilled = i < team.health;
                         const bounceClass = isFilled
@@ -90,13 +91,14 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                         const pulseClass = isFilled && isLowHealth ? "minecraft-heart-pulse" : "";
 
                         return (
+                          /* Updated Individual Heart Wrapper */
                           <div
                             key={i}
-                            className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 flex items-center justify-center overflow-visible"
+                            className="relative flex-1 min-w-0 max-w-[2rem] md:max-w-[2.5rem] lg:max-w-[3rem] aspect-square flex items-center justify-center overflow-visible"
                           >
                             {isFilled ? (
-                              <span className={`minecraft-heart-shell ${bounceClass}`}>
-                                <span className={pulseClass}>
+                              <span className={`minecraft-heart-shell w-full h-full ${bounceClass}`}>
+                                <span className={`${pulseClass} w-full h-full block`}>
                                   <img
                                     src={HEART_IMAGE_SRC}
                                     alt="heart"
