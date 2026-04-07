@@ -1,7 +1,20 @@
 import { CheckCircle, XCircle } from "lucide-react";
 
-const HEART_IMAGE_SRC = "/minecraft_hardcore_heart.png";
-const EMPTY_HEART_IMAGE_SRC = "/minecraft_hardcore_null.png";
+// 1. Pure SVG Pixel Heart (Full) - Automatically uses Team Color!
+const PixelHeartFull = ({ className, color }: { className?: string, color: string }) => (
+  <svg viewBox="0 0 9 10" xmlns="http://www.w3.org/2000/svg" className={className} style={{ shapeRendering: "crispEdges", filter: `drop-shadow(0 0 6px ${color})` }}>
+    <path fill={color} d="M2 1h2v1H2zM5 1h2v1H5zM1 2h7v3H1zM2 5h5v1H2zM3 6h3v1H3zM4 7h1v1H4z" />
+    <path fill="#ffffff" d="M2 0h2v1H2zM5 0h2v1H5zM1 1h1v1H1zM4 1h1v1H4zM7 1h1v1H7zM0 2h1v3H0zM8 2h1v3H8zM1 5h1v1H1zM7 5h1v1H7zM2 6h1v1H2zM6 6h1v1H6zM3 7h1v1H3zM5 7h1v1H5zM4 8h1v2H4z" />
+  </svg>
+);
+
+// 2. Pure SVG Pixel Heart (Empty)
+const PixelHeartEmpty = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 9 10" xmlns="http://www.w3.org/2000/svg" className={className} style={{ shapeRendering: "crispEdges" }}>
+    <path fill="#414141" d="M2 1h2v1H2zM5 1h2v1H5zM1 2h7v3H1zM2 5h5v1H2zM3 6h3v1H3zM4 7h1v1H4z" />
+    <path fill="#ffffff" d="M2 0h2v1H2zM5 0h2v1H5zM1 1h1v1H1zM4 1h1v1H4zM7 1h1v1H7zM0 2h1v3H0zM8 2h1v3H8zM1 5h1v1H1zM7 5h1v1H7zM2 6h1v1H2zM6 6h1v1H6zM3 7h1v1H3zM5 7h1v1H5zM4 8h1v2H4z" />
+  </svg>
+);
 
 export type TeamProps = {
   id: number;
@@ -77,7 +90,7 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                       </div>
                     </div>
 
-                    {/* Updated Hearts Container */}
+                    {/* Updated Hearts Container with Pure SVGs */}
                     <div className="flex items-center gap-0.5 sm:gap-1 md:gap-1.5 justify-center w-full md:flex-1 min-w-0 mb-4 md:mb-0 px-2 md:px-4">
                       {[...Array(10)].map((_, i) => {
                         const isFilled = i < team.health;
@@ -91,7 +104,6 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                         const pulseClass = isFilled && isLowHealth ? "minecraft-heart-pulse" : "";
 
                         return (
-                          /* Updated Individual Heart Wrapper */
                           <div
                             key={i}
                             className="relative flex-1 min-w-0 max-w-[2rem] md:max-w-[2.5rem] lg:max-w-[3rem] aspect-square flex items-center justify-center overflow-visible"
@@ -99,23 +111,15 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                             {isFilled ? (
                               <span className={`minecraft-heart-shell w-full h-full ${bounceClass}`}>
                                 <span className={`${pulseClass} w-full h-full block`}>
-                                  <img
-                                    src={HEART_IMAGE_SRC}
-                                    alt="heart"
-                                    className="minecraft-heart-sprite w-full h-full object-contain scale-[1.7] translate-y-[5px]"
-                                    style={{
-                                      imageRendering: "pixelated",
-                                      filter: `drop-shadow(0 0 4px ${team.color})`,
-                                    }}
+                                  <PixelHeartFull
+                                    color={team.color}
+                                    className="w-full h-full object-contain"
                                   />
                                 </span>
                               </span>
                             ) : (
-                              <img
-                                src={EMPTY_HEART_IMAGE_SRC}
-                                alt="empty heart"
-                                className="minecraft-heart-sprite w-full h-full object-contain scale-[1.7] translate-y-[5px] opacity-30"
-                                style={{ imageRendering: "pixelated" }}
+                              <PixelHeartEmpty
+                                className="w-full h-full object-contain opacity-40"
                               />
                             )}
                           </div>
