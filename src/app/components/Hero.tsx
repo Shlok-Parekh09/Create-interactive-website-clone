@@ -135,14 +135,18 @@ export function Hero({ onRegister }: HeroProps) {
       <div className="absolute bottom-20 right-8 w-16 h-16 border-b-2 border-r-2 border-purple-500/50" style={{ zIndex: 5 }} />
 
       {/* Main content */}
-      <div className="relative z-10 text-center px-4 max-w-xl mx-auto sm:max-w-3xl lg:max-w-5xl">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-4 mb-10 px-8 py-4 border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 text-base tracking-widest uppercase"
-          style={{ fontFamily: "Share Tech Mono, monospace" }}
-        >
-          <span className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
-          SANKHYA PRESENTS
-        </div>
+      <div className="relative z-10 text-center px-3 max-w-xl mx-auto sm:max-w-3xl lg:max-w-5xl">
+       {/* Slim Badge */}
+  <div 
+    className="inline-flex items-center gap-2 mb-4 px-4 py-0.5 border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-xs tracking-[0.3em] uppercase"
+    style={{ 
+      fontFamily: "Share Tech Mono, monospace",
+      clipPath: "polygon(5% 0, 100% 0, 95% 100%, 0 100%)" // Adds a slight "cyberpunk" slant for extra slimness
+    }}
+  >
+    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+    SANKHYA PRESENTS
+  </div>
 
         {/* Main Title */}
         <h1
