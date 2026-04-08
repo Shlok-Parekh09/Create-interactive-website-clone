@@ -5,21 +5,21 @@ import {
   Target,
   Heart,
   Zap,
-  Ghost,
-  RotateCcw,
-  Wifi
+  Scale,
+  TrendingUp,
+  Link2
 } from "lucide-react";
 import { useState } from "react";
 
 const abilitiesData = [
   {
     icon: <Shield className="w-8 h-8 md:w-10 md:h-10" />,
-    id: "shield",
-    title: "THE SHIELD",
+    id: "aegis",
+    title: "AEGIS OF DEFLECTION",
     type: "Defensive",
-    short: "Defend your points from a total steal.",
-    desc: "Essential for teams marked as the Bounty. Blocks all health damage directed at you for this duel. It prevents rivals from landing the final blow to steal 50% of your points.",
-    tags: ["Survival", "Anti-Steal"],
+    short: "Full match protection with a counter-bonus.",
+    desc: "Blocks all health damage for the entire match. If you Cooperate while the opponent Betrays, you gain +4 bonus points and they receive 0.",
+    tags: ["Full-Match Guard", "Point Counter"],
     color: "#15803d",
   },
   {
@@ -27,80 +27,80 @@ const abilitiesData = [
     id: "sword",
     title: "THE SWORD",
     type: "Aggressive",
-    short: "Lower health to trigger a point theft.",
-    desc: "Deals -2 health damage. Use this to push a rival toward 0 health. Eliminating a Bounty team grants you 50% of their points; normal teams grant 25%.",
-    tags: ["Execute", "Steal-Setup"],
+    short: "Heavy strike and point theft.",
+    desc: "Deals -4 health damage instantly. If you choose to Betray this round, you also steal 2 points directly from the opponent's total score.",
+    tags: ["High Damage", "Point Steal"],
     color: "#b91c1c",
   },
   {
     icon: <FlaskConical className="w-8 h-8 md:w-10 md:h-10" />,
     id: "poison",
-    title: "POISON",
+    title: "VIPER'S KISS",
     type: "Tactical",
-    short: "Drain health over multiple rounds.",
-    desc: "Inflicts immediate and delayed health damage. Perfect for weakening a high-point team so they become an easy target for a points-steal in later rounds.",
-    tags: ["Bleed", "Weakening"],
+    short: "Corrosive toxin that drains health over time.",
+    desc: "Target immediately loses -2 HP. They continue to lose -2 HP at the start of their next two matches. Bypasses shields played in later matches.",
+    tags: ["Status Effect", "Attrition"],
     color: "#7e22ce",
   },
   {
     icon: <Target className="w-8 h-8 md:w-10 md:h-10" />,
-    id: "arrows",
-    title: "THE ARROWS",
-    type: "Piercing",
-    short: "Heavy damage for bounty-hunting.",
-    desc: "Deals -3 health damage to cooperators. If a high-point team tries to play safe to protect their lead, use Arrows to shatter their health and take their points.",
-    tags: ["High Burst", "Eliminator"],
+    id: "arrow",
+    title: "THE SNIPER ARROW",
+    type: "Precision",
+    short: "The ultimate prediction counter.",
+    desc: "Must Cooperate to fire. If the opponent Betrays, they lose -5 HP. If the opponent Cooperates, you gain +5 bonus points.",
+    tags: ["Mind Games", "Match Finisher"],
     color: "#a16207",
   },
   {
     icon: <Heart className="w-8 h-8 md:w-10 md:h-10" />,
-    id: "potion",
-    title: "HEALING POTION",
+    id: "mend",
+    title: "MEND OF THE MARTYR",
     type: "Recovery",
-    short: "Emergency recovery to stay in the game.",
-    desc: "Restores +3 health. If your team is being targeted for your points, use this to stay above 0 health and prevent your rivals from claiming their 25% or 50% cut.",
-    tags: ["Survival", "Reset"],
+    short: "Massive health surge for peaceful teams.",
+    desc: "Restores +5 health to your team. Only triggers if you reveal a Cooperate card. If you Betray, the heal fails and the ability is wasted.",
+    tags: ["Heal", "Risk/Reward"],
     color: "#0e7490",
   },
   {
-    icon: <Ghost className="w-8 h-8 md:w-10 md:h-10" />,
-    id: "smoke",
-    title: "SMOKE SCREEN",
-    type: "Stealth",
-    short: "Hide your betrayal to avoid being targeted.",
-    desc: "Masks your choices. Use this to Betray without alerting the room, helping you avoid being voted as the 'Bounty' team by the other participants.",
-    tags: ["Utility", "Anti-Target"],
-    color: "#94a3b8",
-  },
-  {
-    icon: <RotateCcw className="w-8 h-8 md:w-10 md:h-10" />,
-    id: "time-warp",
-    title: "TIME WARP",
-    type: "Utility",
-    short: "Negate the mutual betrayal health tax.",
-    desc: "Bends the rules. If both players Betray, you take -0 health instead of -1. Keeps your health high so you aren't an easy target for elimination theft.",
-    tags: ["Health Save", "Economy"],
+    icon: <TrendingUp className="w-8 h-8 md:w-10 md:h-10" />,
+    id: "gambit",
+    title: "GAMBIT'S TRIPLE",
+    type: "Financial",
+    short: "Triple your round earnings.",
+    desc: "Triples (3x) the points you receive for the current round. Note: If the outcome results in 0 points (Opponent Betrays), you gain nothing.",
+    tags: ["High Stakes", "Point Farming"],
     color: "#f472b6",
   },
   {
-    icon: <Zap className="w-8 h-8 md:w-10 md:h-10" />,
-    id: "mirror",
-    title: "THE MIRROR",
+    icon: <Link2 className="w-8 h-8 md:w-10 md:h-10" />,
+    id: "blood-link",
+    title: "BLOOD LINK",
     type: "Reactive",
-    short: "Punish those trying to steal your points.",
-    desc: "If a rival uses a Sword or Arrows to eliminate you, The Mirror reflects 50% of the damage back. If you go down, you might take the point-stealer with you.",
-    tags: ["Punishment", "Counter"],
+    short: "Reflect damage for the entire match.",
+    desc: "For all 3 rounds of the match, any health damage dealt to you is also dealt back to the opponent. The ultimate deterrent against aggression.",
+    tags: ["Deterrent", "Mirror"],
     color: "#6366f1",
   },
   {
-    icon: <Wifi className="w-8 h-8 md:w-10 md:h-10" />,
-    id: "emp",
-    title: "EMP BLAST",
-    type: "Sabotage",
-    short: "Disable a rival's defensive ability.",
-    desc: "Shut down an opponent's Shield or Potion. Use this on a low-health team to ensure they cannot heal or defend before you land the final strike to steal their points.",
-    tags: ["Disruptor", "Sabotage"],
+    icon: <Zap className="w-8 h-8 md:w-10 md:h-10" />,
+    id: "vampire",
+    title: "VAMPIRIC PACT",
+    type: "Hybrid",
+    short: "Drain health and gain points.",
+    desc: "Drains -2 HP from opponent and heals you +2 HP. If you Betray, you gain +3 bonus points from the bank.",
+    tags: ["Sustain", "Leech"],
     color: "#fbbf24",
+  },
+  {
+    icon: <Scale className="w-8 h-8 md:w-10 md:h-10" />,
+    id: "justice",
+    title: "JUSTICE'S SCALE",
+    type: "Utility",
+    short: "The ultimate comeback mechanic.",
+    desc: "If opponent leads in Points: Deal -4 HP. If opponent leads in Health: Steal 4 points. If they lead in both, both effects trigger.",
+    tags: ["Comeback", "Anti-Lead"],
+    color: "#94a3b8",
   }
 ];
 
@@ -113,13 +113,13 @@ export function Abilities() {
 
         <div className="text-center mb-10">
           <p className="text-cyan-400 text-xs tracking-[0.4em] uppercase mb-4 font-mono font-bold">
-            // SECRET_ARSENAL_V3.0 //
+            // SECRET_ARSENAL_V4.0 //
           </p>
           <h2 className="text-white mb-6 font-black font-orbitron text-4xl">
             THE <span style={{ color: "#00f5ff" }}>ARSENAL</span>
           </h2>
           <p className="text-gray-100 max-w-3xl mx-auto text-lg font-medium opacity-95">
-            Every team holds a single-use Ultimate Ability. Use it to shield your progress or trigger a Bounty Raid—instantly seizing 50% of an opponent’s points.
+            You have nine tools, but only <span className="text-cyan-400 font-bold underline">three charges</span> across 12 rounds. Choose your moments wisely; an Ultimate can turn a defeat into a landslide victory.
           </p>
         </div>
 
@@ -143,8 +143,7 @@ export function Abilities() {
 
               <h3 className="text-white mb-2 uppercase font-orbitron text-lg font-black">{ability.title}</h3>
 
-              {/* Conditional Content Toggle */}
-              <p className="text-gray-300 text-sm mb-4 leading-snug">
+              <p className="text-gray-300 text-sm mb-4 leading-snug min-h-[40px]">
                 {activeAbility === ability.id ? ability.desc : ability.short}
               </p>
 
@@ -154,7 +153,6 @@ export function Abilities() {
                 ))}
               </div>
 
-              {/* READ MORE / COLLAPSE INDICATOR */}
               <div className="mt-2 text-[9px] font-mono uppercase tracking-widest" style={{ color: `${ability.color}` }}>
                 {activeAbility === ability.id ? "▲ COLLAPSE" : "▼ READ FULL EFFECT"}
               </div>
