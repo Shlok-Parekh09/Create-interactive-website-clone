@@ -13,7 +13,7 @@ export type TeamProps = {
   color: string;
 };
 
-export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
+export function FullScreenLeaderboard({ teams,showPoints }: { teams: TeamProps[],showPoints:boolean }) {
   const sortedTeams = [...teams].sort((a, b) => b.points - a.points);
 
   return (
@@ -69,6 +69,16 @@ export function FullScreenLeaderboard({ teams }: { teams: TeamProps[] }) {
                         <h3 className="text-white text-lg md:text-2xl font-black font-orbitron uppercase tracking-tight transition-transform group-hover:translate-x-1 truncate">
                           {team.name}
                         </h3>
+                        {/* UPDATED: Show points only if toggled on, otherwise show a "Redacted" style label */}
+          {showPoints ? (
+            <div className="text-cyan-400 font-mono text-xs font-bold mt-1">
+              CREDITS: {team.points}
+            </div>
+          ) : (
+            <div className="text-gray-600 font-mono text-[10px] mt-1 tracking-widest uppercase">
+              Points: [REDACTED]
+            </div>
+          )}
                         {team.isBounty && (
                           <div className="mt-1 inline-block bg-yellow-500 text-black text-[8px] md:text-[9px] font-black px-2 py-0.5 font-orbitron shadow-[0_0_10px_rgba(234,179,8,0.3)]">
                             BOUNTY: 50% STEAL
