@@ -14,12 +14,12 @@ const features = [
   {
     icon: <Shield className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Secret Abilities",
-    desc: "Unleash one-time powers like The Shield or Poison to swing the duel in your favor.",
+    desc: "Unleash one-time powers to swing the duel in your favor.",
   },
   {
     icon: <Activity className="w-8 h-8 md:w-10 md:h-10" />,
     title: "Bounty System",
-    desc: "Betrayal triggers unblockable point deductions that serve as the Arena's justice.",
+    desc: "The Arena's justice.",
   },
 ];
 
@@ -69,7 +69,7 @@ export function About() {
             { value: "3", label: "Players Per Team" },
             { value: "10", label: "Initial Health" },
             { value: "₹3K+", label: "Total Prize Pool" },
-            { value: "5-6", label: "Tournament Rounds" },
+            { value: "4", label: "Tournament Rounds" },
           ].map((stat) => (
             <div key={stat.label} className="bg-[#050518]/90 backdrop-blur-sm p-8 text-center group transition-colors">
               <div className="text-cyan-400 mb-2 flex flex-row items-center justify-center gap-0" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "2.5rem", fontWeight: 900 }}>

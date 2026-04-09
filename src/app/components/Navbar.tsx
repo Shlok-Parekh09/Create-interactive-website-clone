@@ -54,7 +54,7 @@ export function Navbar({ onRegister, onOpenLeaderboard }: NavbarProps) {
               className="text-white group-hover:text-cyan-300 transition-colors"
               style={{ fontFamily: "Orbitron, sans-serif", fontSize: "1.1rem", fontWeight: 700 }}
             >
-              The<span className="text-cyan-400">Matrix</span>
+              The <span className="text-cyan-400">Matrix</span> 26
             </span>
           </button>
 

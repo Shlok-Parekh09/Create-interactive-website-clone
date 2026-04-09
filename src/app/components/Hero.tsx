@@ -13,7 +13,7 @@ interface TimeLeft {
 }
 
 // Updated to your specific event date
-const EVENT_DATE = new Date("2026-04-25T10:00:00");
+const EVENT_DATE = new Date("2026-04-23T10:00:00");
 
 const PARTICLES = Array.from({ length: 20 }, (_, i) => ({
   id: i,
@@ -159,7 +159,7 @@ export function Hero({ onRegister }: HeroProps) {
             letterSpacing: "-2px",
           }}
         >
-          THE <span style={{ color: "#00f5ff" }}>MATRIX</span>
+          THE <span style={{ color: "#00f5ff" }}>MATRIX</span>26
         </h1>
         <div
           className="text-purple-400 mb-6"
@@ -181,7 +181,7 @@ export function Hero({ onRegister }: HeroProps) {
             fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
           }}
         >
-          A High-Stakes Game Theory Challenge • April 25, 2026 • Mumbai
+          A High-Stakes Game Theory Challenge • April 23, 2026 • Mumbai
           <br />
           <span className="text-cyan-300/80">Collaborate to survive. Betray to win. Solve the logic.</span>
         </p>
@@ -192,7 +192,7 @@ export function Hero({ onRegister }: HeroProps) {
             className="text-gray-500 mb-4 text-xs tracking-widest uppercase"
             style={{ fontFamily: "Share Tech Mono, monospace" }}
           >
-            — SYSTEM BOOT IN —
+            — Free your mind —
           </p>
           <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4">
             <CountdownUnit value={timeLeft.days} label="Days" />
