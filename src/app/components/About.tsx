@@ -41,7 +41,7 @@ export function About() {
             WHAT IS <span style={{ color: "#00f5ff" }}>THE MATRIX</span>?
           </h2>
           <p className="text-gray-100 max-w-4xl mx-auto leading-relaxed text-lg md:text-2xl font-medium opacity-90" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            The Matrix: SANKHYA’s Premier Arena for High-Stakes Game Theory. Every round is a gamble: Cooperate for a steady +3 points, or Betray for a lethal +5. But beware—in this circuit, your Health is your only currency. Hit zero, and you’re permanently disconnected.
+            The Matrix: SANKHYA’s Premier Arena for High-Stakes Game Theory. Every round is a gamble: Cooperate for a steady +3 points, or Betray for a lethal +5.Score the highest end win, But beware in this circuit, your Health is your only currency. Hit zero, and you’re permanently disconnected.
           </p>
         </div>
 
