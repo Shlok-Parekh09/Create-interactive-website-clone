@@ -18,7 +18,8 @@ const COLORS = ["#00f5ff", "#8b5cf6", "#f59e0b", "#ef4444", "#10b981", "#ec4899"
 "#c084fc", "#f87171", "#67e8f9", "#bef264", "#f472b6", "#60a5fa", "#fcd34d"];
 
 // 1. Accept teams and setTeams as props
-export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }) {
+export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: TeamProps[], setTeams: any,showPoints: boolean, 
+  setShowPoints: (val: boolean) => void }) {
   const [newTeamName, setNewTeamName] = useState("");
 
   // Global Stats based on the props
@@ -105,6 +106,17 @@ export function Admin({ teams, setTeams }: { teams: TeamProps[], setTeams: any }
           <p className="text-gray-400 font-mono text-xs mt-2 uppercase tracking-widest">
             Override Console // Sankhya Arena
           </p>
+          {/* ADDED TOGGLE BUTTON */}
+          <button 
+            onClick={() => setShowPoints(!showPoints)}
+            className={`mt-4 px-4 py-2 rounded font-mono text-xs font-bold transition-all border ${
+              showPoints 
+                ? "bg-cyan-500/20 text-cyan-400 border-cyan-500/50" 
+                : "bg-gray-800 text-gray-500 border-white/10"
+            }`}
+          >
+            {showPoints ? "● POINTS VISIBLE ON HUD" : "○ POINTS HIDDEN ON HUD"}
+          </button>
         </div>
         
         <div className="flex gap-2 sm:gap-4 w-full md:w-auto">

@@ -8,7 +8,7 @@ const faqs = [
   },
   {
     q: "What is the team size and entry fee?",
-    a: "Teams consist of exactly 3 players. There is a one-time entry fee of ₹40 per team (not per person). Make sure all 3 members are present and registered before the tournament begins.",
+    a: "Teams consist of exactly 3 players. There is a one-time entry fee of ₹60 per team (not per person). Make sure all 3 members are present and registered before the tournament begins.",
   },
   {
     q: "How does scoring work?",
@@ -16,27 +16,23 @@ const faqs = [
   },
   {
     q: "What happens if my team's health hits zero?",
-    a: "Immediate elimination — regardless of your point total. Teams start with 10 health. Reckless mutual betrayals, Sword and Arrows abilities, and Poison can eat through your health fast. Survival is just as important as scoring.",
+    a: "Immediate elimination.Your points will be Freezed.",
   },
   {
     q: "How do Secret Abilities work?",
-    a: "Each player holds one secret ability card (Shield, Sword, Poison, Arrows, or Healing Potion), drafted so no two teams have the same setup. Abilities are one-time use per player for the entire tournament and must be declared at the same moment you reveal your Cooperate/Betray choice. Use them wisely — you only get one shot.",
+    a: "Each player holds three secret ability card (Shield, Sword, Poison, Arrows, or Healing Potion), drafted so no two teams have the same setup. Abilities are one-time use per player for the entire tournament and must be declared at the same moment you reveal your Cooperate/Betray choice. Use them wisely you only get one shot.",
   },
   {
     q: "What is the Bounty System?",
-    a: "After a set number of Round all the participate team can decide one team The bounty team And if the boundary team is killed the team which killed it may get 50% of all points earn by the team",
-  },
-  {
-    q: "What is the Cooperation Streak Bonus?",
-    a: "If you and the same opponent mutually cooperate in two consecutive duels (across any rounds), both teams earn a bonus +1 point on that second cooperation. Betraying your streak partner resets the counter to zero — and may trigger a Bounty against you.",
+    a: "After a set number of Round all the participate team can decide one team as *The bounty team* And if the boundary team is killed the team which killed it may get 50% of all points earn by the team,They get +2pt every round",
   },
   {
     q: "How many rounds are there?",
-    a: "The host announces the total number of rounds before the tournament begins (typically 5 or 6). This number is fixed and visible to all participants throughout — no hidden extensions, no surprises. Every decision counts, especially in the final rounds.",
+    a: "The host announces the total number of rounds before the tournament begins (typically 4). This number is fixed and visible to all participants throughout — no hidden extensions, no surprises. Every decision counts, especially in the final rounds.",
   },
   {
-    q: "What's the best strategy — cooperate or betray?",
-    a: "That's the game. Pure betrayal burns health and invites Bounties. Pure cooperation leaves you vulnerable to Sword and Arrows. The optimal play shifts every round based on your opponents, your health, your abilities, and the cooperation streaks in play. Read the room — and your opponents.",
+    q: "What's the best strategy cooperate or betray?",
+    a: "That's the game. Pure betrayal burns health and invites Bounties. Pure cooperation leaves you vulnerable to Sword and Arrows. The optimal play shifts every round based on your opponents, your health, your abilities in play. Read the room and your opponents.",
   },
 ];
 

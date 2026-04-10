@@ -22,6 +22,7 @@ export default function App() {
   
   // ── SHARED ARENA STATE ──
   const [arenaTeams, setArenaTeams] = useState<TeamProps[]>(initialArenaTeams);
+  const [showPoints, setShowPoints] = useState(true);
 
   useEffect(() => {
     const docRef = doc(db, "gameState", "current");
@@ -164,6 +165,7 @@ export default function App() {
 
       {/* ── CONDITIONAL VIEWS ── */}
       
+      
       {/* 1. THE SECURITY GATEWAY */}
       {currentView === 'admin_login' ? (
         <div className="relative z-50 flex items-center justify-center min-h-screen p-6">
@@ -198,7 +200,7 @@ export default function App() {
       
       /* 2. THE FULL-SCREEN LEADERBOARD */
       ) : currentView === 'leaderboard' ? (
-        <FullScreenLeaderboard teams={arenaTeams} />
+        <FullScreenLeaderboard teams={arenaTeams} showPoints={showPoints}/>
 
       
       /* 3. THE ADMIN COMMAND CENTER */
@@ -209,7 +211,7 @@ export default function App() {
               Logout System
             </button>
           </div>
-          <Admin teams={arenaTeams} setTeams={handleSetTeams} />
+          <Admin teams={arenaTeams} setTeams={handleSetTeams} setShowPoints={setShowPoints} showPoints={showPoints}/>
         </div>
       
       /* 4. THE LANDING PAGE */
