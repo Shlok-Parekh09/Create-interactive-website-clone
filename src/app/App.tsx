@@ -8,7 +8,6 @@ import { Timeline } from "./components/Timeline";
 import { Abilities } from "./components/Abilities";
 import { FAQ } from "./components/FAQ";
 import { Footer } from "./components/Footer";
-import { RegistrationModal } from "./components/RegistrationModal";
 
 // Import the components
 import { FullScreenLeaderboard, TeamProps } from "./components/FullScreenLeaderboard";
@@ -17,9 +16,10 @@ import { Lock, ShieldAlert, Activity } from "lucide-react";
 
 const initialArenaTeams: TeamProps[] = [];
 
+// REPLACE THIS WITH YOUR ACTUAL GOOGLE FORM LINK
+const GOOGLE_FORM_URL = "https://forms.gle/zCkTsmWjQacxq21C6";
+
 export default function App() {
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
-  
   // ── SHARED ARENA STATE ──
   const [arenaTeams, setArenaTeams] = useState<TeamProps[]>(initialArenaTeams);
   const [showPoints, setShowPoints] = useState(true);
@@ -33,7 +33,6 @@ export default function App() {
           setArenaTeams(data.teams);
         }
       } else {
-        // Initialize if not exists
         setDoc(docRef, { teams: initialArenaTeams });
       }
     });
@@ -43,11 +42,10 @@ export default function App() {
   const handleSetTeams = (newTeams: TeamProps[]) => {
     const docRef = doc(db, "gameState", "current");
     setDoc(docRef, { teams: newTeams }, { merge: true });
-    // Update local state optimistically
     setArenaTeams(newTeams);
   };
 
-  // ── STATE ──
+  // ── VIEW STATE ──
   const [currentView, setCurrentView] = useState<'landing' | 'leaderboard' | 'admin' | 'admin_login'>('landing');
   
   // ── SECURITY STATE ──
@@ -57,7 +55,11 @@ export default function App() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const scrollTimeout = useRef<number | null>(null);
 
-  // --- SECURITY LOGIN HANDLER ---
+  // Helper function to handle registration link
+  const handleRegisterRedirect = () => {
+    window.open(GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
+  };
+
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (passwordInput === "MATRIX") { 
@@ -74,9 +76,7 @@ export default function App() {
     const video = videoRef.current;
     if (!video) return;
 
-    video.play().catch(() => {
-      console.log("Initial autoplay prevented by browser.");
-    });
+    video.play().catch(() => {});
 
     let lastScrollY = window.scrollY;
 
@@ -88,21 +88,17 @@ export default function App() {
       const deltaY = currentScrollY - lastScrollY;
       lastScrollY = currentScrollY;
 
-      // Top of page: just play video smoothly
       if (currentScrollY < 50) {
         if (video.paused) video.play().catch(() => { });
         return;
       }
 
       if (deltaY > 0) {
-        // Scrolling down: play video (giving the illusion of advancing with scroll)
         if (video.paused) video.play().catch(() => { });
       } else if (deltaY < 0) {
-        // Scrolling up: pause video immediately, do not scrub
         if (!video.paused) video.pause();
       }
 
-      // When scroll stops, pause the video
       scrollTimeout.current = window.setTimeout(() => {
         if (!video.paused) video.pause();
       }, 150);
@@ -118,7 +114,7 @@ export default function App() {
   return (
     <div className="min-h-screen" style={{ background: "transparent" }}>
 
-      {/* ── Fixed full-site video background ── */}
+      {/* ── Fixed video background ── */}
       <video
         ref={videoRef}
         autoPlay
@@ -143,7 +139,7 @@ export default function App() {
       <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "linear-gradient(135deg, rgba(2,2,8,0.80) 0%, rgba(5,5,24,0.72) 50%, rgba(2,2,8,0.80) 100%)", zIndex: -1 }} />
       <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", background: "radial-gradient(ellipse at 50% 30%, rgba(0,245,255,0.06) 0%, rgba(139,0,255,0.04) 50%, transparent 80%)", zIndex: -1 }} />
 
-      {/* ── PUBLIC HUD TOGGLE (Floating Bottom Right) ── */}
+      {/* ── PUBLIC HUD TOGGLE ── */}
       {(currentView === 'landing' || currentView === 'leaderboard') && (
         <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[200]">
           <button
@@ -164,7 +160,6 @@ export default function App() {
       )}
 
       {/* ── CONDITIONAL VIEWS ── */}
-      
       
       {/* 1. THE SECURITY GATEWAY */}
       {currentView === 'admin_login' ? (
@@ -202,7 +197,6 @@ export default function App() {
       ) : currentView === 'leaderboard' ? (
         <FullScreenLeaderboard teams={arenaTeams} showPoints={showPoints}/>
 
-      
       /* 3. THE ADMIN COMMAND CENTER */
       ) : currentView === 'admin' ? (
         <div className="relative z-10 pt-20 pb-10 min-h-screen flex flex-col items-center p-2 sm:p-4 md:p-8 w-full overflow-x-hidden">
@@ -217,27 +211,22 @@ export default function App() {
       /* 4. THE LANDING PAGE */
       ) : (
         <>
-          {/* FIXED: Removed the Error throw and passed the correct function */}
           <Navbar 
-            onRegister={() => setIsRegisterOpen(true)} 
+            onRegister={handleRegisterRedirect} 
             onOpenLeaderboard={() => setCurrentView('leaderboard')} 
           />
-          <Hero onRegister={() => setIsRegisterOpen(true)} />
+          <Hero onRegister={handleRegisterRedirect} />
           <About />
           <Timeline />
           <Abilities />
           <FAQ />
           <Footer 
-                  onRegister={() => setIsRegisterOpen(true)}
-                  onAdminClick={() => setCurrentView('admin_login')} 
-                  onOpenLeaderboard={() => setCurrentView('leaderboard')}        />
+            onRegister={handleRegisterRedirect}
+            onAdminClick={() => setCurrentView('admin_login')} 
+            onOpenLeaderboard={() => setCurrentView('leaderboard')}
+          />
         </>
       )}
-
-      <RegistrationModal
-        isOpen={isRegisterOpen}
-        onClose={() => setIsRegisterOpen(false)}
-      />
     </div>
   );
 }
