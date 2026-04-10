@@ -53,20 +53,20 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <div
-        className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center border border-cyan-500/40 bg-[#050518]/80 backdrop-blur-sm"
-        style={{ clipPath: "polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)" }}
+        className="relative w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center border border-cyan-500/40 bg-[#050518]/80 backdrop-blur-sm"
+        style={{ clipPath: "polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)" }}
       >
         <div className="absolute inset-0 bg-cyan-500/5" />
         <span
           className="text-cyan-400 relative z-10"
-          style={{ fontFamily: "Orbitron, sans-serif", fontSize: "clamp(1.4rem, 4vw, 1.8rem)", fontWeight: 700 }}
+          style={{ fontFamily: "Orbitron, sans-serif", fontSize: "clamp(1rem, 3.5vw, 1.8rem)", fontWeight: 700 }}
         >
           {String(value).padStart(2, "0")}
         </span>
         <div className="absolute inset-0 shadow-inner shadow-cyan-500/10" />
       </div>
       <span
-        className="text-gray-400 mt-2 text-xs tracking-widest uppercase"
+        className="text-gray-400 mt-1 sm:mt-2 text-[10px] sm:text-xs tracking-widest uppercase"
         style={{ fontFamily: "Space Grotesk, sans-serif" }}
       >
         {label}
@@ -128,32 +128,33 @@ export function Hero({ onRegister }: HeroProps) {
         />
       ))}
 
-      {/* Corner decorations */}
-      <div className="absolute top-20 left-8 w-16 h-16 border-t-2 border-l-2 border-cyan-500/50" style={{ zIndex: 5 }} />
-      <div className="absolute top-20 right-8 w-16 h-16 border-t-2 border-r-2 border-cyan-500/50" style={{ zIndex: 5 }} />
-      <div className="absolute bottom-20 left-8 w-16 h-16 border-b-2 border-l-2 border-purple-500/50" style={{ zIndex: 5 }} />
-      <div className="absolute bottom-20 right-8 w-16 h-16 border-b-2 border-r-2 border-purple-500/50" style={{ zIndex: 5 }} />
+      {/* Corner decorations - Scaled down for mobile */}
+      <div className="absolute top-10 sm:top-20 left-4 sm:left-8 w-8 sm:w-16 h-8 sm:h-16 border-t-2 border-l-2 border-cyan-500/50" style={{ zIndex: 5 }} />
+      <div className="absolute top-10 sm:top-20 right-4 sm:right-8 w-8 sm:w-16 h-8 sm:h-16 border-t-2 border-r-2 border-cyan-500/50" style={{ zIndex: 5 }} />
+      <div className="absolute bottom-10 sm:bottom-20 left-4 sm:left-8 w-8 sm:w-16 h-8 sm:h-16 border-b-2 border-l-2 border-purple-500/50" style={{ zIndex: 5 }} />
+      <div className="absolute bottom-10 sm:bottom-20 right-4 sm:right-8 w-8 sm:w-16 h-8 sm:h-16 border-b-2 border-r-2 border-purple-500/50" style={{ zIndex: 5 }} />
 
       {/* Main content */}
       <div className="relative z-10 text-center px-3 max-w-xl mx-auto sm:max-w-3xl lg:max-w-5xl">
-       {/* Slim Badge */}
-  <div 
-    className="inline-flex items-center gap-2 mb-4 px-4 py-0.5 border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-xs tracking-[0.3em] uppercase"
-    style={{ 
-      fontFamily: "Share Tech Mono, monospace",
-      clipPath: "polygon(5% 0, 100% 0, 95% 100%, 0 100%)" // Adds a slight "cyberpunk" slant for extra slimness
-    }}
-  >
-    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-    SANKHYA PRESENTS
-  </div>
+
+        {/* Slim Badge - Responsive text, tracking, and padding */}
+        <div
+          className="inline-flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4 px-2.5 sm:px-4 py-0.5 border border-cyan-500/30 bg-cyan-500/5 text-cyan-400 text-[10px] sm:text-xs tracking-[0.15em] sm:tracking-[0.3em] uppercase"
+          style={{
+            fontFamily: "Share Tech Mono, monospace",
+            clipPath: "polygon(5% 0, 100% 0, 95% 100%, 0 100%)"
+          }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shrink-0" />
+          <span className="truncate">SANKHYA PRESENTS</span>
+        </div>
 
         {/* Main Title */}
         <h1
-          className="text-white mb-2 mt-4 leading-none"
+          className="text-white mb-2 mt-2 sm:mt-4 leading-none"
           style={{
             fontFamily: "Orbitron, sans-serif",
-            fontSize: "clamp(3rem, 10vw, 7rem)",
+            fontSize: "clamp(2.5rem, 10vw, 7rem)",
             fontWeight: 900,
             textShadow: "0 0 40px rgba(0,245,255,0.5), 0 0 80px rgba(0,245,255,0.2)",
             letterSpacing: "-2px",
@@ -165,8 +166,8 @@ export function Hero({ onRegister }: HeroProps) {
           className="text-purple-400 mb-6"
           style={{
             fontFamily: "Orbitron, sans-serif",
-            fontSize: "clamp(1rem, 3vw, 1.5rem)",
-            letterSpacing: "0.3em",
+            fontSize: "clamp(0.8rem, 3vw, 1.5rem)",
+            letterSpacing: "0.2em",
             textShadow: "0 0 20px rgba(139,0,255,0.6)",
           }}
         >
@@ -175,10 +176,10 @@ export function Hero({ onRegister }: HeroProps) {
 
         {/* Tagline */}
         <p
-          className="text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-gray-300 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed"
           style={{
             fontFamily: "Space Grotesk, sans-serif",
-            fontSize: "clamp(0.9rem, 2vw, 1.1rem)",
+            fontSize: "clamp(0.85rem, 2vw, 1.1rem)",
           }}
         >
           A High-Stakes Game Theory Challenge • April 23, 2026 • Mumbai
@@ -189,31 +190,31 @@ export function Hero({ onRegister }: HeroProps) {
         {/* Countdown */}
         <div className="mb-10">
           <p
-            className="text-gray-500 mb-4 text-xs tracking-widest uppercase"
+            className="text-gray-500 mb-3 sm:mb-4 text-[10px] sm:text-xs tracking-widest uppercase"
             style={{ fontFamily: "Share Tech Mono, monospace" }}
           >
             — Free your mind —
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-4">
+          <div className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-4">
             <CountdownUnit value={timeLeft.days} label="Days" />
-            <span className="text-cyan-400 mt-6 text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
+            <span className="text-cyan-400 mt-2 sm:mt-6 text-xl sm:text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
             <CountdownUnit value={timeLeft.hours} label="Hours" />
-            <span className="text-cyan-400 mt-6 text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
+            <span className="text-cyan-400 mt-2 sm:mt-6 text-xl sm:text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
             <CountdownUnit value={timeLeft.minutes} label="Minutes" />
-            <span className="text-cyan-400 mt-6 text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
+            <span className="text-cyan-400 mt-2 sm:mt-6 text-xl sm:text-2xl" style={{ fontFamily: "Orbitron, sans-serif" }}>:</span>
             <CountdownUnit value={timeLeft.seconds} label="Seconds" />
           </div>
         </div>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col gap-4 justify-center items-center sm:flex-row">
+        <div className="flex flex-col gap-3 sm:gap-4 justify-center items-center sm:flex-row">
           <button
             onClick={onRegister}
-            className="relative w-full sm:w-auto px-8 sm:px-10 py-4 bg-cyan-500 hover:bg-cyan-400 text-black transition-all duration-200 overflow-hidden group"
+            className="relative w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 bg-cyan-500 hover:bg-cyan-400 text-black transition-all duration-200 overflow-hidden group"
             style={{
               fontFamily: "Orbitron, sans-serif",
               fontWeight: 700,
-              fontSize: "0.9rem",
+              fontSize: "0.85rem",
               letterSpacing: "0.1em",
               clipPath: "polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)",
               boxShadow: "0 0 30px rgba(0,245,255,0.3)",
@@ -224,11 +225,11 @@ export function Hero({ onRegister }: HeroProps) {
           </button>
           <button
             onClick={scrollToAbout}
-            className="relative w-full sm:w-auto px-8 sm:px-10 py-4 border border-cyan-500/60 hover:border-cyan-400 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 transition-all duration-200"
+            className="relative w-full sm:w-auto px-8 sm:px-10 py-3.5 sm:py-4 border border-cyan-500/60 hover:border-cyan-400 text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 transition-all duration-200"
             style={{
               fontFamily: "Orbitron, sans-serif",
               fontWeight: 700,
-              fontSize: "0.9rem",
+              fontSize: "0.85rem",
               letterSpacing: "0.1em",
               clipPath: "polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)",
             }}
@@ -241,9 +242,9 @@ export function Hero({ onRegister }: HeroProps) {
       {/* Scroll indicator */}
       <button
         onClick={scrollToAbout}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 hover:text-cyan-400 transition-colors animate-bounce"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 text-gray-500 hover:text-cyan-400 transition-colors animate-bounce"
       >
-        <ChevronDown className="w-6 h-6" />
+        <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       <style>{`

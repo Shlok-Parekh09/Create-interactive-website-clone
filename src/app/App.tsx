@@ -18,6 +18,7 @@ const initialArenaTeams: TeamProps[] = [];
 
 // REPLACE THIS WITH YOUR ACTUAL GOOGLE FORM LINK
 const GOOGLE_FORM_URL = "https://forms.gle/zCkTsmWjQacxq21C6";
+const VIDEO_SOURCE = "/video/bg-video.mp4";
 
 export default function App() {
   // ── SHARED ARENA STATE ──
@@ -26,17 +27,28 @@ export default function App() {
 
   useEffect(() => {
     const docRef = doc(db, "gameState", "current");
-    const unsubscribe = onSnapshot(docRef, (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        if (data.teams) {
-          setArenaTeams(data.teams);
+    
+    const fetchData = async () => {
+      try {
+        const { getDoc } = await import("firebase/firestore");
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.teams) setArenaTeams(data.teams);
+          if (data.showPoints !== undefined) setShowPoints(data.showPoints);
         }
-      } else {
-        setDoc(docRef, { teams: initialArenaTeams });
+      } catch (error) {
+        console.error("Fetch error:", error);
       }
-    });
-    return () => unsubscribe();
+    };
+
+    // Initial fetch
+    fetchData();
+
+    // Poll every 15 seconds. This allows 200+ people to share 100 connection slots.
+    const interval = setInterval(fetchData, 15000); 
+    
+    return () => clearInterval(interval);
   }, []);
 
   const handleSetTeams = (newTeams: TeamProps[]) => {
@@ -62,7 +74,7 @@ export default function App() {
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === "MATRIX") { 
+    if (passwordInput === "NEERAJ") { 
       setCurrentView('admin');
       setPasswordInput("");
       setLoginError(false);
@@ -132,7 +144,7 @@ export default function App() {
           transform: "translateZ(0)",
         }}
       >
-        <source src="/video/bg-video.mp4" type="video/mp4" />
+        <source src={VIDEO_SOURCE} type="video/mp4" />
       </video>
 
       {/* Background Overlays */}
