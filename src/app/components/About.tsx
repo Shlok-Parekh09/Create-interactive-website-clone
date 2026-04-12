@@ -40,9 +40,52 @@ export function About() {
           <h2 className="text-white mb-6 font-black tracking-tighter" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "clamp(2rem, 5vw, 3.5rem)" }}>
             WHAT IS <span style={{ color: "#00f5ff" }}>THE MATRIX</span>?
           </h2>
-          <p className="text-gray-100 max-w-4xl mx-auto leading-relaxed text-lg md:text-2xl font-medium opacity-90" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            The Matrix: SANKHYA’s Premier Arena for High-Stakes Game Theory. Every round is a gamble: Cooperate for a steady +3 points, or Betray for a lethal +5.Score the highest end win, But beware in this circuit, your Health is your only currency. Hit zero, and you’re permanently disconnected.
+          <p className="text-gray-100 max-w-4xl mx-auto leading-relaxed text-justify md:text-2xl font-medium opacity-90 mb-12" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+            Step into SANKHYA’s most ruthless simulation, where game theory is stripped of its abstractions and forged into a weapon. In this high-stakes circuit, every round forces a choice between the collective safety of the group and the predatory allure of the solo surge.
           </p>
+          {/* Embedded YouTube Video */}
+          <div className="relative w-full max-w-4xl mx-auto mb-8 aspect-video border-2 border-cyan-500/40 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,245,255,0.2)]">
+            <iframe
+              className="absolute top-0 left-0 w-full h-full"
+              src="https://www.youtube.com/embed/lPmOu3xA98Y"
+              title="What is the Matrix?"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen>
+            </iframe>
+          </div>
+        </div>
+
+        {/* Rules List Section */}
+        <div className="max-w-4xl mx-auto text-left mb-10" >
+          <ul className="space-y-6 text-gray-100 leading-relaxed text-lg md:text-xl font-medium opacity-90" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
+            <li className="flex gap-4">
+              <span className="text-cyan-400 font-mono">[01]</span>
+              <span>
+                <strong className="text-cyan-400 uppercase tracking-wider">Cooperate (+3 Points):</strong> Play the long game. Choose mutual benefit for a steady, reliable climb up the leaderboard.
+              </span>
+            </li>
+
+            <li className="flex gap-4">
+              <span className="text-cyan-400 font-mono">[02]</span>
+              <span>
+                <strong className="text-cyan-400 uppercase tracking-wider">Betray (+5 Points):</strong> Execute a lethal spike. Maximize your gain at the cost of your connection, but prepare for the fallout.
+              </span>
+            </li>
+
+            <li className="flex gap-4">
+              <span className="text-cyan-400 font-mono">[03]</span>
+              <span>
+                <strong className="text-cyan-400 uppercase tracking-wider">The Currency of Life:</strong> Forget credits—your Health is the only resource that matters.
+              </span>
+            </li>
+
+            <li className="flex gap-4" >
+              <span className="text-cyan-400 font-mono">[04]</span>
+              <span>
+                <strong className="text-rose-500 uppercase tracking-wider">Permanent Disconnection:</strong> The system is unforgiving. If your Health hits zero, your feed is cut and you are purged from the circuit forever.
+              </span>
+            </li>
+          </ul>
         </div>
 
         {/* Tactical Cards - Reduced padding and min-height */}
