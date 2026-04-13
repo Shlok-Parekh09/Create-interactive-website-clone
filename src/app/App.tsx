@@ -28,27 +28,18 @@ export default function App() {
   useEffect(() => {
     const docRef = doc(db, "gameState", "current");
     
-    const fetchData = async () => {
-      try {
-        const { getDoc } = await import("firebase/firestore");
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          if (data.teams) setArenaTeams(data.teams);
-          if (data.showPoints !== undefined) setShowPoints(data.showPoints);
-        }
-      } catch (error) {
-        console.error("Fetch error:", error);
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        if (data.teams) setArenaTeams(data.teams);
+        if (data.showPoints !== undefined) setShowPoints(data.showPoints);
       }
-    };
+    }, (error) => {
+      console.error("Snapshot error:", error);
+    });
 
-    // Initial fetch
-    fetchData();
-
-    // Poll every 15 seconds. This allows 200+ people to share 100 connection slots.
-    const interval = setInterval(fetchData, 15000); 
-    
-    return () => clearInterval(interval);
+    // We are using onSnapshot to ensure instant UI updates when credits are added
+    return () => unsubscribe();
   }, []);
 
   const handleSetTeams = (newTeams: TeamProps[]) => {
