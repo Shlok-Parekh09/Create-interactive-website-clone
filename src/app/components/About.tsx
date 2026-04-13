@@ -41,7 +41,7 @@ export function About() {
             WHAT IS <span style={{ color: "#00f5ff" }}>THE MATRIX</span>?
           </h2>
           <p className="text-gray-100 max-w-4xl mx-auto leading-relaxed text-justify md:text-2xl font-medium opacity-90 mb-12" style={{ fontFamily: "Space Grotesk, sans-serif" }}>
-            Step into SANKHYA’s most ruthless simulation, where game theory is stripped of its abstractions and forged into a weapon. In this high-stakes circuit, every round forces a choice between the collective safety of the group and the predatory allure of the solo surge.
+            Welcome to SANKHYA’s ultimate challenge. We’re taking "game theory"—the science of strategy—out of the textbook and turning it into your secret weapon. In this high-stakes game, every round forces you to make a brutal choice: do you team up so everyone survives, or do you betray the group to steal the massive prize just for yourself?
           </p>
           {/* Embedded YouTube Video */}
           <div className="relative w-full max-w-4xl mx-auto mb-8 aspect-video border-2 border-cyan-500/40 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,245,255,0.2)]">
