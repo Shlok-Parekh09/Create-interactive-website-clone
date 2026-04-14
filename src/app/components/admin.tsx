@@ -111,7 +111,7 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
       points: 0,
       health: 10,
       isBounty: false,
-      history: ["safe", "safe", "safe"],
+      history: [],
       color: COLORS[teams.length % COLORS.length]
     };
     setTeams([...teams, newTeam]);
@@ -181,11 +181,15 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
           <div key={team.id} className="flex flex-col xl:flex-row xl:items-center justify-between p-3 sm:p-5 bg-[#0a0a25] border-l-4 border-y border-r border-white/5 rounded-lg transition-all overflow-hidden" style={{ borderLeftColor: team.color }}>
             
             {/* 1. Identity & Status */}
-            <div className="flex justify-between xl:w-1/4 mb-4 xl:mb-0">
+            <div 
+              className="flex justify-between xl:w-1/4 mb-4 xl:mb-0 cursor-pointer hover:bg-white/5 p-2 -ml-2 rounded transition-all group"
+              onClick={() => setExpandedRosterTeamId(expandedRosterTeamId === team.id ? null : team.id)}
+            >
               <div>
                 <span className={`text-xl font-black font-orbitron tracking-tight flex items-center gap-2 ${team.health === 0 ? "text-red-500 line-through opacity-50" : "text-white"}`}>
                   {team.name}
                   {team.isBounty && <Zap size={16} className="text-yellow-500 fill-yellow-500 animate-pulse" />}
+                  {expandedRosterTeamId === team.id ? <ChevronUp size={16} className="text-cyan-500" /> : <ChevronDown size={16} className="text-gray-500 group-hover:text-cyan-500 transition-colors" />}
                 </span>
                 <div className="text-xs font-mono mt-1 text-gray-400">
                   HP: <span className={team.health <= 3 ? "text-red-500" : "text-white"}>{team.health}</span> | PTS: <span className="text-cyan-400">{team.points}</span>
@@ -240,24 +244,16 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
             </div>
 
             {/* 5. Team Members / Players (Dropdown) */}
-            <div className="flex flex-col w-full mt-4 bg-black/20 rounded border border-white/5 transition-all overflow-hidden text-left">
-              <button 
-                onClick={() => setExpandedRosterTeamId(expandedRosterTeamId === team.id ? null : team.id)}
-                className="w-full flex items-center justify-between p-3 hover:bg-white/5 transition"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] text-gray-400 font-mono uppercase">Team Roster</span>
+            {expandedRosterTeamId === team.id && (
+              <div className="flex flex-col w-full mt-4 bg-[#080820] rounded border border-cyan-500/20 transition-all overflow-hidden text-left p-3 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
+                  <span className="text-[10px] text-gray-400 font-mono uppercase tracking-widest">Team Roster</span>
                   <span className="text-cyan-500 font-bold text-xs bg-cyan-500/10 px-2 py-0.5 rounded">
                     {team.players?.length || 0}/3 Members
                   </span>
                 </div>
-                <div className="text-gray-500">
-                  {expandedRosterTeamId === team.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </div>
-              </button>
-
-              {expandedRosterTeamId === team.id && (
-                <div className="p-3 border-t border-white/5 flex flex-col gap-2">
+                
+                <div className="flex flex-col gap-2">
                   <div className="flex flex-col gap-2">
                     {team.players?.map((p, idx) => (
                       <div key={idx} className="flex justify-between items-center bg-white/5 px-3 py-2 rounded">
@@ -303,8 +299,8 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
                     </div>
                   )}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
 
             {/* 6. Danger Zone */}
             <div className="flex items-center w-full xl:w-auto mt-4 pt-4 border-t border-white/5">
