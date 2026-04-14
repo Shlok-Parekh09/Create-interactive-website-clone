@@ -60,6 +60,34 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
     }));
   };
 
+  const addPlayer = (teamId: number, playerName: string) => {
+    setTeams(teams.map(t => {
+      if (t.id === teamId) {
+        return { 
+          ...t, 
+          players: [...(t.players || []), { name: playerName, points: 0 }] 
+        };
+      }
+      return t;
+    }));
+  };
+
+  const adjustPlayerPoints = (teamId: number, playerIndex: number, delta: number) => {
+    setTeams(teams.map(t => {
+      if (t.id === teamId && t.players) {
+        const newPlayers = [...t.players];
+        newPlayers[playerIndex] = {
+          ...newPlayers[playerIndex],
+          points: Math.max(0, newPlayers[playerIndex].points + delta)
+        };
+        // Also update team points to reflect player contributions? No, let's keep team points independent or just adjust both.
+        // Usually, team score can be separate or sum. Let's just adjust the player's points here.
+        return { ...t, players: newPlayers };
+      }
+      return t;
+    }));
+  };
+
   const undoHistory = (teamId: number) => {
     setTeams(teams.map(t => {
       if (t.id === teamId && t.history.length > 0) {
@@ -195,10 +223,41 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
               </button>
             </div>
 
-            {/* 5. Danger Zone */}
-            <div className="flex items-center w-full xl:w-auto mt-2 xl:mt-0 pt-4 border-t border-white/5 xl:border-none xl:pt-0">
+            {/* 5. Team Members / Players */}
+            <div className="flex flex-col gap-2 w-full mt-4 bg-black/20 p-3 rounded border border-white/5">
+              <span className="text-[9px] text-gray-500 font-mono uppercase mb-1">Team Roster</span>
+              <div className="flex flex-col gap-2">
+                {team.players?.map((p, idx) => (
+                  <div key={idx} className="flex justify-between items-center bg-white/5 px-2 py-1 rounded">
+                    <span className="text-xs font-bold text-white uppercase">{p.name}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-cyan-400 font-mono text-xs">{p.points} PTS</span>
+                      <button onClick={() => adjustPlayerPoints(team.id, idx, 1)} className="px-1.5 py-0.5 bg-cyan-500/10 text-cyan-400 rounded text-[9px] hover:bg-cyan-500 hover:text-white transition">+1</button>
+                      <button onClick={() => adjustPlayerPoints(team.id, idx, -1)} className="px-1.5 py-0.5 bg-red-500/10 text-red-400 rounded text-[9px] hover:bg-red-500 hover:text-white transition">-1</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <form 
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const input = e.currentTarget.elements.namedItem('playerName') as HTMLInputElement;
+                  if(input.value.trim()) {
+                    addPlayer(team.id, input.value.trim());
+                    input.value = '';
+                  }
+                }}
+                className="flex gap-2 mt-2"
+              >
+                <input name="playerName" type="text" placeholder="NEW MEMBER NAME..." className="text-xs flex-1 bg-transparent border-b border-white/20 text-white outline-none focus:border-cyan-400 p-1 font-mono uppercase" />
+                <button type="submit" className="text-[10px] bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded hover:bg-cyan-500 hover:text-black transition font-bold">ADD MEMBER</button>
+              </form>
+            </div>
+
+            {/* 6. Danger Zone */}
+            <div className="flex items-center w-full xl:w-auto mt-4 pt-4 border-t border-white/5">
               <button onClick={() => removeTeam(team.id)} className="w-full xl:w-auto justify-center flex items-center gap-2 p-2 text-gray-400 font-mono text-xs hover:text-red-500 hover:bg-red-500/10 rounded transition" title="Delete Team">
-                <Trash2 size={16} /> <span className="xl:hidden">DELETE TEAM</span>
+                <Trash2 size={16} /> <span>DELETE TEAM</span>
               </button>
             </div>
 

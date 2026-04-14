@@ -213,10 +213,20 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                           {/* Row 2: Hearts */}
                           <div className="flex flex-row flex-nowrap items-center justify-center gap-[2px]">
                             {[...Array(10)].map((_, i) => (
-                              <img
+                              <motion.img
                                 key={i}
                                 src={i < team.health ? HEART_IMAGE_SRC : EMPTY_HEART_IMAGE_SRC}
                                 draggable={false}
+                                animate={
+                                  team.health <= 3 && i < team.health
+                                    ? { scale: [1, 1.2, 1] } // Pulse when low health
+                                    : { y: [0, -3, 0] } // Normal bounce
+                                }
+                                transition={
+                                  team.health <= 3 && i < team.health
+                                    ? { repeat: Infinity, duration: 0.5, ease: "easeInOut" }
+                                    : { repeat: Infinity, duration: 2, delay: i * 0.1, ease: "easeInOut" }
+                                }
                                 className="object-contain select-none pointer-events-none shrink-0"
                                 style={{
                                   imageRendering: "pixelated",
@@ -259,10 +269,20 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                           {/* CENTER: Hearts */}
                           <div className="flex flex-row flex-nowrap items-center justify-center overflow-hidden" style={{ gap: "clamp(1px, 0.5vw, 8px)" }}>
                             {[...Array(10)].map((_, i) => (
-                              <img
+                              <motion.img
                                 key={i}
                                 src={i < team.health ? HEART_IMAGE_SRC : EMPTY_HEART_IMAGE_SRC}
                                 draggable={false}
+                                animate={
+                                  team.health <= 3 && i < team.health
+                                    ? { scale: [1, 1.25, 1] } // Pulse when low health
+                                    : { y: [0, -4, 0] } // Normal bounce
+                                }
+                                transition={
+                                  team.health <= 3 && i < team.health
+                                    ? { repeat: Infinity, duration: 0.5, ease: "easeInOut" }
+                                    : { repeat: Infinity, duration: 2, delay: i * 0.1, ease: "easeInOut" }
+                                }
                                 className="object-contain select-none pointer-events-none shrink-0"
                                 style={{
                                   imageRendering: "pixelated",
@@ -301,6 +321,28 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                                         <span className="text-cyan-400 font-mono text-sm">{p.points} PTS</span>
                                       </div>
                                     ))}
+                                    {(!team.players || team.players.length === 0) && (
+                                      <div className="text-gray-500 text-xs font-mono">NO ACTIVE AGENTS FOUND</div>
+                                    )}
+                                  </div>
+
+                                  {/* History Section Added */}
+                                  <div className="mt-6">
+                                    <div className="flex items-center gap-2 text-gray-500 font-mono text-xs uppercase mb-3 tracking-tighter">
+                                      <Activity size={14} className="text-cyan-400" /> Recent Strategy History
+                                    </div>
+                                    <div className="flex gap-2">
+                                      {team.history.slice(-3).map((status, idx) => (
+                                        <span key={idx} className={`px-3 py-1 text-xs font-bold font-mono rounded border ${
+                                          status === 'safe' ? 'bg-green-500/10 text-green-400 border-green-500/30' : 'bg-red-500/10 text-red-400 border-red-500/30'
+                                        }`}>
+                                          {status === 'safe' ? 'COOPERATE' : 'BETRAY'}
+                                        </span>
+                                      ))}
+                                      {team.history.length === 0 && (
+                                        <span className="text-gray-600 font-mono text-xs">NO ACTIONS RECORDED</span>
+                                      )}
+                                    </div>
                                   </div>
                                 </div>
                                 <div className="hidden md:block bg-cyan-500/5 border border-cyan-500/20 p-4 flex flex-col justify-center items-center">
