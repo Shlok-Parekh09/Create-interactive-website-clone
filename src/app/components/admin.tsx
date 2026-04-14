@@ -7,11 +7,12 @@ import {
   Trash2, 
   ShieldCheck, 
   UserPlus,
-  RotateCcw 
+  RotateCcw,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 import { useState } from "react";
 import { TeamProps } from "./FullScreenLeaderboard"; // Import the type!
-
 const COLORS = ["#00f5ff", "#8b5cf6", "#f59e0b", "#ef4444", "#10b981", "#ec4899", "#3b82f6",
 "#22c55e", "#eab308", "#6366f1", "#f97316", "#14b8a6", "#a855f7", "#f43f5e",
 "#0ea5e9", "#84cc16", "#d946ef", "#facc15", "#38bdf8", "#fb7185", "#4ade80",
@@ -21,6 +22,7 @@ const COLORS = ["#00f5ff", "#8b5cf6", "#f59e0b", "#ef4444", "#10b981", "#ec4899"
 export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: TeamProps[], setTeams: any,showPoints: boolean, 
   setShowPoints: (val: boolean) => void }) {
   const [newTeamName, setNewTeamName] = useState("");
+  const [expandedRosterTeamId, setExpandedRosterTeamId] = useState<number | null>(null);
 
   // Global Stats based on the props
   const totalScore = teams.reduce((acc, team) => acc + team.points, 0);
@@ -53,7 +55,7 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
   const updateHistory = (teamId: number, status: "safe" | "hit") => {
     setTeams(teams.map(t => {
       if (t.id === teamId) {
-        const newHistory = [...t.history, status].slice(-3);
+        const newHistory = [...t.history, status].slice(-6);
         return { ...t, history: newHistory };
       }
       return t;
@@ -210,48 +212,98 @@ export function Admin({ teams, setTeams ,showPoints, setShowPoints}: { teams: Te
             </div>
 
             {/* 4. Round History (Railroad Sync + Undo Update) */}
-            <div className="flex flex-wrap gap-2 xl:w-auto mb-4 xl:mb-0 bg-black/20 p-2 rounded items-center">
-              <span className="text-[9px] text-gray-500 font-mono uppercase w-full mb-1">Log Round (Updates HUD)</span>
-              <button onClick={() => updateHistory(team.id, 'safe')} className="flex-1 sm:flex-none justify-center px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white transition rounded text-xs font-mono font-bold flex gap-1 items-center">
+            <div className="flex flex-col gap-1 xl:w-auto mb-4 xl:mb-0 bg-black/20 p-2 rounded justify-center min-w-[140px]">
+              <span className="text-[9px] text-gray-500 font-mono uppercase mb-1">Log Round (Updates HUD)</span>
+              
+              <button 
+                onClick={() => updateHistory(team.id, 'safe')} 
+                className="w-full justify-center px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/30 hover:bg-green-500 hover:text-white transition rounded text-[10px] font-mono font-bold flex gap-1 items-center"
+              >
                 <ShieldCheck size={12} /> COOP
               </button>
-              <button onClick={() => updateHistory(team.id, 'hit')} className="flex-1 sm:flex-none justify-center px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded text-xs font-mono font-bold flex gap-1 items-center">
-                <Swords size={12} /> BETRAY
-              </button>
-              <button onClick={() => undoHistory(team.id)} className="flex-1 sm:flex-none justify-center px-3 py-1 bg-gray-500/10 text-gray-400 border border-gray-500/30 hover:bg-gray-500 hover:text-white transition rounded text-xs font-mono flex gap-1 items-center" title="Undo Last Entry">
-                <RotateCcw size={14} /> <span className="sm:hidden">UNDO</span>
-              </button>
+              
+              <div className="flex gap-1 w-full">
+                <button 
+                  onClick={() => updateHistory(team.id, 'hit')} 
+                  className="flex-1 justify-center px-3 py-1 bg-red-500/10 text-red-500 border border-red-500/30 hover:bg-red-500 hover:text-white transition rounded text-[10px] font-mono font-bold flex gap-1 items-center"
+                >
+                  <Swords size={12} /> BETRAY
+                </button>
+                <button 
+                  onClick={() => undoHistory(team.id)} 
+                  className="w-8 justify-center py-1 bg-transparent text-gray-400 border border-white/10 hover:bg-gray-800 hover:text-white transition rounded flex items-center shrink-0" 
+                  title="Undo Last Entry"
+                >
+                  <RotateCcw size={12} />
+                </button>
+              </div>
             </div>
 
-            {/* 5. Team Members / Players */}
-            <div className="flex flex-col gap-2 w-full mt-4 bg-black/20 p-3 rounded border border-white/5">
-              <span className="text-[9px] text-gray-500 font-mono uppercase mb-1">Team Roster</span>
-              <div className="flex flex-col gap-2">
-                {team.players?.map((p, idx) => (
-                  <div key={idx} className="flex justify-between items-center bg-white/5 px-2 py-1 rounded">
-                    <span className="text-xs font-bold text-white uppercase">{p.name}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-cyan-400 font-mono text-xs">{p.points} PTS</span>
-                      <button onClick={() => adjustPlayerPoints(team.id, idx, 1)} className="px-1.5 py-0.5 bg-cyan-500/10 text-cyan-400 rounded text-[9px] hover:bg-cyan-500 hover:text-white transition">+1</button>
-                      <button onClick={() => adjustPlayerPoints(team.id, idx, -1)} className="px-1.5 py-0.5 bg-red-500/10 text-red-400 rounded text-[9px] hover:bg-red-500 hover:text-white transition">-1</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const input = e.currentTarget.elements.namedItem('playerName') as HTMLInputElement;
-                  if(input.value.trim()) {
-                    addPlayer(team.id, input.value.trim());
-                    input.value = '';
-                  }
-                }}
-                className="flex gap-2 mt-2"
+            {/* 5. Team Members / Players (Dropdown) */}
+            <div className="flex flex-col w-full mt-4 bg-black/20 rounded border border-white/5 transition-all overflow-hidden text-left">
+              <button 
+                onClick={() => setExpandedRosterTeamId(expandedRosterTeamId === team.id ? null : team.id)}
+                className="w-full flex items-center justify-between p-3 hover:bg-white/5 transition"
               >
-                <input name="playerName" type="text" placeholder="NEW MEMBER NAME..." className="text-xs flex-1 bg-transparent border-b border-white/20 text-white outline-none focus:border-cyan-400 p-1 font-mono uppercase" />
-                <button type="submit" className="text-[10px] bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded hover:bg-cyan-500 hover:text-black transition font-bold">ADD MEMBER</button>
-              </form>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-gray-400 font-mono uppercase">Team Roster</span>
+                  <span className="text-cyan-500 font-bold text-xs bg-cyan-500/10 px-2 py-0.5 rounded">
+                    {team.players?.length || 0}/3 Members
+                  </span>
+                </div>
+                <div className="text-gray-500">
+                  {expandedRosterTeamId === team.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                </div>
+              </button>
+
+              {expandedRosterTeamId === team.id && (
+                <div className="p-3 border-t border-white/5 flex flex-col gap-2">
+                  <div className="flex flex-col gap-2">
+                    {team.players?.map((p, idx) => (
+                      <div key={idx} className="flex justify-between items-center bg-white/5 px-3 py-2 rounded">
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded uppercase font-bold border ${idx === 0 ? "bg-purple-500/10 text-purple-400 border-purple-500/30" : "bg-blue-500/10 text-blue-400 border-blue-500/30"}`}>
+                            {idx === 0 ? "LEADER" : "MEMBER"}
+                          </span>
+                          <span className="text-xs font-bold text-white uppercase">{p.name}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-cyan-400 font-mono text-xs w-10 text-right">{p.points} PTS</span>
+                          <button onClick={() => adjustPlayerPoints(team.id, idx, 1)} className="px-2 py-1 bg-cyan-500/10 text-cyan-400 rounded text-[10px] hover:bg-cyan-500 hover:text-black font-bold transition">+1</button>
+                          <button onClick={() => adjustPlayerPoints(team.id, idx, -1)} className="px-2 py-1 bg-red-500/10 text-red-500 rounded text-[10px] hover:bg-red-500 hover:text-black font-bold transition">-1</button>
+                        </div>
+                      </div>
+                    ))}
+                    {(!team.players || team.players.length === 0) && (
+                      <div className="text-gray-600 text-[10px] font-mono uppercase italic px-2">No agents active.</div>
+                    )}
+                  </div>
+
+                  {(!team.players || team.players.length < 3) && (
+                    <form 
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const input = e.currentTarget.elements.namedItem('playerName') as HTMLInputElement;
+                        if(input.value.trim()) {
+                          addPlayer(team.id, input.value.trim());
+                          input.value = '';
+                        }
+                      }}
+                      className="flex gap-2 mt-2"
+                    >
+                      <input name="playerName" type="text" placeholder={!team.players || team.players.length === 0 ? "LEADER NAME..." : "MEMBER NAME..."} className="text-xs flex-1 bg-black/40 border border-white/10 text-white outline-none focus:border-cyan-400 p-2 rounded font-mono uppercase" />
+                      <button type="submit" className="text-[10px] bg-cyan-500 text-black px-4 py-2 rounded hover:bg-cyan-400 transition font-bold uppercase">
+                        ADD {(!team.players || team.players.length === 0) ? "LEADER" : "MEMBER"}
+                      </button>
+                    </form>
+                  )}
+                  {team.players && team.players.length >= 3 && (
+                    <div className="text-green-500 text-xs font-mono uppercase text-center mt-2 p-2 bg-green-500/10 border border-green-500/20 rounded">
+                      MAXIMUM ROSTER CAPACITY REACHED
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* 6. Danger Zone */}

@@ -331,17 +331,20 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                                     <div className="flex items-center gap-2 text-gray-500 font-mono text-xs uppercase mb-3 tracking-tighter">
                                       <Activity size={14} className="text-cyan-400" /> Recent Strategy History
                                     </div>
-                                    <div className="flex gap-2">
-                                      {team.history.slice(-3).map((status, idx) => (
-                                        <span key={idx} className={`px-3 py-1 text-xs font-bold font-mono rounded border ${
-                                          status === 'safe' ? 'bg-green-500/10 text-green-400 border-green-500/30' : 'bg-red-500/10 text-red-400 border-red-500/30'
-                                        }`}>
-                                          {status === 'safe' ? 'COOPERATE' : 'BETRAY'}
-                                        </span>
-                                      ))}
-                                      {team.history.length === 0 && (
-                                        <span className="text-gray-600 font-mono text-xs">NO ACTIONS RECORDED</span>
-                                      )}
+                                    <div className="flex gap-2 md:gap-4 mt-2">
+                                      {(() => {
+                                        const recentHistory = team.history.slice(-6);
+                                        const paddedHistory = [...recentHistory, ...Array(Math.max(0, 6 - recentHistory.length)).fill('empty')];
+                                        
+                                        return paddedHistory.map((status, idx) => (
+                                          <div 
+                                            key={idx} 
+                                            className={`w-4 h-4 md:w-6 md:h-6 rounded-full border-[2px] md:border-[3px] border-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.6)] flex-shrink-0 transition-colors duration-300
+                                              ${status === 'safe' ? 'bg-green-500' : status === 'hit' ? 'bg-red-500' : 'bg-black'}
+                                            `} 
+                                          />
+                                        ));
+                                      })()}
                                     </div>
                                   </div>
                                 </div>
