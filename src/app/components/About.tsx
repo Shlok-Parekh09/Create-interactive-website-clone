@@ -36,7 +36,6 @@ export function About() {
 
         {/* Section Header - Scaled down */}
         <div className="text-center mb-12">
-          <p className="text-cyan-400 text-sm tracking-[0.4em] uppercase mb-4 font-mono">// SYSTEM_DATA: THE_ARENA_RULES_V3.0 </p>
           <h2 className="text-white mb-6 font-black tracking-tighter" style={{ fontFamily: "Orbitron, sans-serif", fontSize: "clamp(2rem, 5vw, 3.5rem)" }}>
             WHAT IS <span style={{ color: "#00f5ff" }}>THE MATRIX</span>?
           </h2>
