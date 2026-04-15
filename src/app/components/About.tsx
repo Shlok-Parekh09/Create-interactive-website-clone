@@ -111,7 +111,7 @@ export function About() {
           {[
             { value: "3", label: "Players Per Team" },
             { value: "10", label: "Initial Health" },
-            { value: "₹3K+", label: "Total Prize Pool" },
+            { value: "__", label: "Total Prize Pool" },
             { value: "4", label: "Tournament Rounds" },
           ].map((stat) => (
             <div key={stat.label} className="bg-[#050518]/90 backdrop-blur-sm p-8 text-center group transition-colors">
