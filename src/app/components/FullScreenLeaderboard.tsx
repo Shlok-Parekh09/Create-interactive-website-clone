@@ -310,8 +310,8 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                                     <Activity size={14} className="text-cyan-400" /> Bio-Signature Analysis
                                   </div>
                                   <div className="space-y-2">
-                                    {(showPoints ? [...(team.players || [])].sort((a, b) => b.points - a.points) : (team.players || [])).map((p, i) => {
-                                      const roleText = showPoints ? `${p.points} PTS` : (i === 0 ? "LEADER" : `MEMBER ${i}`);
+                                    {(team.players || []).map((p, i) => {
+                                      const roleText = i === 0 ? "LEADER" : `MEMBER ${i}`;
                                       return (
                                         <div key={i} className="flex justify-between bg-white/5 p-3 border-l-2" style={{ borderColor: team.color }}>
                                           <span className="text-white font-bold uppercase text-sm">{p.name}</span>
