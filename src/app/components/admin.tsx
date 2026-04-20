@@ -146,7 +146,7 @@ export function Admin({ teams, setTeams, showPoints, setShowPoints }: {
               : "bg-gray-800 text-gray-500 border-white/10"
               }`}
           >
-            {showPoints ? "● POINTS VISIBLE ON HUD" : "○ POINTS HIDDEN ON HUD"}
+            {showPoints ? "● POINTS VISIBLE " : "○ POINTS HIDDEN "}
           </button>
         </div>
 
@@ -218,7 +218,7 @@ export function Admin({ teams, setTeams, showPoints, setShowPoints }: {
 
             {/* 4. Round History (Railroad Sync + Undo Update) */}
             <div className="flex flex-col gap-1 xl:w-auto mb-4 xl:mb-0 bg-black/20 p-2 rounded justify-center min-w-[140px]">
-              <span className="text-[9px] text-gray-500 font-mono uppercase mb-1">Log Round (Updates HUD)</span>
+              <span className="text-[9px] text-gray-500 font-mono uppercase mb-1">Log Round (Updates HIDE)</span>
 
               <button
                 onClick={() => updateHistory(team.id, 'safe')}
