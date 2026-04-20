@@ -48,6 +48,12 @@ export default function App() {
     setArenaTeams(newTeams);
   };
 
+  const handleSetShowPoints = (newValue: boolean) => {
+    const docRef = doc(db, "gameState", "current");
+    setDoc(docRef, { showPoints: newValue }, { merge: true });
+    setShowPoints(newValue);
+  };
+
   // ── VIEW STATE ──
   const [currentView, setCurrentView] = useState<'landing' | 'leaderboard' | 'admin' | 'admin_login'>('landing');
   
@@ -208,7 +214,7 @@ export default function App() {
               Logout System
             </button>
           </div>
-          <Admin teams={arenaTeams} setTeams={handleSetTeams} setShowPoints={setShowPoints} showPoints={showPoints}/>
+          <Admin teams={arenaTeams} setTeams={handleSetTeams} setShowPoints={handleSetShowPoints} showPoints={showPoints}/>
         </div>
       
       /* 4. THE LANDING PAGE */
