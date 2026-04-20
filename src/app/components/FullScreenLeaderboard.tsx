@@ -65,7 +65,7 @@ function TeamCredits({ points, showPoints }: { points: number; showPoints: boole
   return (
     <div className="flex flex-row items-center gap-2 relative">
       <div className="text-sm sm:text-lg md:text-2xl font-black font-orbitron text-white z-10 relative leading-none">
-        {showPoints ? points : "[REDACTED]"}
+        {showPoints ? points : "--"}
 
         {/* Floating Numbers */}
         <AnimatePresence>
@@ -333,13 +333,13 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                                       {(() => {
                                         const recentHistory = team.history.slice(-6);
                                         const paddedHistory = [...recentHistory, ...Array(Math.max(0, 6 - recentHistory.length)).fill('empty')];
-                                        
+
                                         return paddedHistory.map((status, idx) => (
-                                          <div 
-                                            key={idx} 
+                                          <div
+                                            key={idx}
                                             className={`w-4 h-4 md:w-6 md:h-6 rounded-full border-[2px] md:border-[3px] border-yellow-400 shadow-[0_0_5px_rgba(250,204,21,0.6)] flex-shrink-0 transition-colors duration-300
                                               ${status === 'safe' ? 'bg-green-500' : status === 'hit' ? 'bg-red-500' : 'bg-black'}
-                                            `} 
+                                            `}
                                           />
                                         ));
                                       })()}
