@@ -123,11 +123,6 @@ function TeamCredits({ points, showPoints }: { points: number; showPoints: boole
 export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[], showPoints: boolean }) {
   const [expandedTeamId, setExpandedTeamId] = useState<number | null>(null);
 
-  // Global rankings for the # displayed on the card
-  const globalRankings = useMemo(() => {
-    return [...teams].sort((a, b) => b.points - a.points);
-  }, [teams]);
-
   // Pool Logic: Locked by ID, Sorted by Points within the pool
   const teamPools = useMemo(() => {
     const pools: TeamProps[][] = [];
@@ -171,9 +166,9 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  {pool.map((team) => {
+                  {pool.map((team, idx) => {
                     const isExpanded = expandedTeamId === team.id;
-                    const globalRank = globalRankings.findIndex(t => t.id === team.id) + 1;
+                    const sectorRank = idx + 1;
 
                     return (
                       <motion.div
@@ -195,7 +190,7 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                           {/* Row 1: Rank + Name */}
                           <div className="flex items-center gap-3 min-w-0">
                             <span className="font-orbitron text-2xl font-black leading-none shrink-0" style={{ color: team.color }}>
-                              #{String(globalRank).padStart(2, "0")}
+                              #{String(sectorRank).padStart(2, "0")}
                             </span>
                             <h3 className="text-white text-base font-black font-orbitron uppercase truncate">
                               {team.name}
@@ -249,7 +244,7 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                           {/* LEFT: Rank + Name */}
                           <div className="flex items-center gap-6 min-w-0">
                             <span className="font-orbitron text-3xl font-black leading-none shrink-0" style={{ color: team.color }}>
-                              #{String(globalRank).padStart(2, "0")}
+                              #{String(sectorRank).padStart(2, "0")}
                             </span>
                             <div className="min-w-0">
                               <h3 className="text-white text-2xl font-black font-orbitron uppercase truncate">
@@ -315,12 +310,15 @@ export function FullScreenLeaderboard({ teams, showPoints }: { teams: TeamProps[
                                     <Activity size={14} className="text-cyan-400" /> Bio-Signature Analysis
                                   </div>
                                   <div className="space-y-2">
-                                    {team.players?.sort((a, b) => b.points - a.points).map((p, i) => (
-                                      <div key={i} className="flex justify-between bg-white/5 p-3 border-l-2" style={{ borderColor: team.color }}>
-                                        <span className="text-white font-bold uppercase text-sm">{p.name}</span>
-                                        <span className="text-cyan-400 font-mono text-sm">{p.points} PTS</span>
-                                      </div>
-                                    ))}
+                                    {(showPoints ? [...(team.players || [])].sort((a, b) => b.points - a.points) : (team.players || [])).map((p, i) => {
+                                      const roleText = showPoints ? `${p.points} PTS` : (i === 0 ? "LEADER" : `MEMBER ${i}`);
+                                      return (
+                                        <div key={i} className="flex justify-between bg-white/5 p-3 border-l-2" style={{ borderColor: team.color }}>
+                                          <span className="text-white font-bold uppercase text-sm">{p.name}</span>
+                                          <span className="text-cyan-400 font-mono text-sm">{roleText}</span>
+                                        </div>
+                                      );
+                                    })}
                                     {(!team.players || team.players.length === 0) && (
                                       <div className="text-gray-500 text-xs font-mono">NO ACTIVE AGENTS FOUND</div>
                                     )}
